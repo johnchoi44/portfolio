@@ -2,8 +2,8 @@
 
 .container {
     position: relative;
-    background: #19376d;
-    background: linear-gradient(200deg, rgba(25, 55, 109, 0) 0%, #19376d 50%, rgba(25, 55, 109, 0) 100%);
+    background: var(--color-secondary);
+    background: linear-gradient(200deg, rgba(31, 41, 55, 0) 0%, var(--color-secondary) 50%, rgba(31, 41, 55, 0) 100%);
     border-radius: 15px;
     padding: 73px;
     margin-top: 129px;
@@ -12,7 +12,7 @@
     margin-right: 10%;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     overflow: hidden;
-    transition: tranform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .title {

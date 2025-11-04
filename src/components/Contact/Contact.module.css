@@ -36,6 +36,11 @@
     display: flex;
     align-items: center;
     gap: 25px;
+    transition: transform 0.3s ease;
+}
+
+.link:hover {
+    transform: translateX(10px);
 }
 
 .link a {
@@ -44,6 +49,11 @@
     font-size: 30px;
     font-weight: 400;
     letter-spacing: 1.5px;
+    transition: color 0.3s ease;
+}
+
+.link a:hover {
+    color: var(--color-primary);
 }
 
 @media screen and (max-width: 830px) {
