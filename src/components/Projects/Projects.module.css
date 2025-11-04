@@ -139,13 +139,14 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
+    background: var(--color-dark);
+    color: var(--color-text);
     border-radius: 50%;
     width: 40px;
     height: 40px;
     cursor: pointer;
     z-index: 20;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .arrowLeft {
@@ -154,6 +155,12 @@
 
 .arrowRight {
     right: 10px;
+}
+
+.arrowLeft:hover,
+.arrowRight:hover {
+    background: var(--color-primary);
+    transform: translateY(-50%) scale(1.1);
 }
 
 .indicators {
@@ -167,23 +174,19 @@
     height: 10px;
     margin: 0 5px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--color-border);
     border: none;
     cursor: pointer;
     margin-bottom: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.indicator:hover {
+    transform: scale(1.2);
 }
 
 .indicator.active {
-    background-color: rgba(255, 255, 255, 1);
-}
-
-
-.arrowLeft:hover {
-    cursor: pointer;
-}
-
-.arrowRight:hover {
-    cursor: pointer;
+    background-color: var(--color-primary);
 }
 
 /* This is 3d */

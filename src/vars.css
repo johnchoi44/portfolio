@@ -1,10 +1,16 @@
 :root {
-    /* Colors */
-    --color-text: #fff;
-    --color-primary: #576cbc;
-    --color-secondary: #19376d;
-    --color-dark: #0b2447;
-    --color-bg: #04162ef2;
+    /* Dark Theme Color Palette */
+    --color-text: #E5E7EB;           /* Off-white text for readability */
+    --color-primary: #06B6D4;        /* Bright teal accent (buttons, links) */
+    --color-secondary: #1F2937;      /* Dark gray secondary background */
+    --color-dark: #0F172A;           /* Very dark slate for depth */
+    --color-bg: #111827;             /* Charcoal/dark slate main background */
+
+    /* Additional accent colors */
+    --color-primary-hover: #0891B2;  /* Darker teal for hover states */
+    --color-primary-light: #22D3EE;  /* Lighter teal for subtle accents */
+    --color-text-muted: #9CA3AF;     /* Muted gray for secondary text */
+    --color-border: #374151;         /* Subtle border color */
 
     /* Fonts */
     --font-robot: "Roboto";
