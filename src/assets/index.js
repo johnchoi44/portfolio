@@ -24,7 +24,7 @@ import linkedin from "./logo/linkedin.png";
 
 import w340 from "./projects/340W.png";
 import ds410book from "./projects/book_recommendation.png";
-import chatbot from "./projects/chatbot.png";
+import chatbot from "./projects/chatbot.PNG";
 import chatbot1 from "./projects/chatbot1.png";
 import datafest from "./projects/datafest.png";
 import ds410 from "./projects/ds410.jpg";
