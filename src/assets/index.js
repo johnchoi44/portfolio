@@ -11,7 +11,7 @@ import white8 from "./hero/white8.png";
 import resume from "./hero/resume.pdf";
 
 import anp from "./history/ANP.svg";
-import cybermed from "./history/cybermed.png";
+import cybermed from "./history/Cybermed.png";
 import kisti from "./history/KISTI.png";
 import nittanyai from "./history/NittanyAI.png";
 import pennstate from "./history/PennState.png";
