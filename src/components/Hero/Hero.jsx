@@ -17,7 +17,10 @@ email,
 github,
 linkedin } from '../../assets'
 
+import ResumeGenerator from '../ResumeGenerator/ResumeGenerator';
+
 const Hero = ({ onToggleAbout }) => {
+  const [showResumeModal, setShowResumeModal] = useState(false);
   return (
     <section className={styles.container}>
       <div className={styles.banner}>
@@ -65,11 +68,16 @@ const Hero = ({ onToggleAbout }) => {
         </div>
         <div className={styles.navButtons}>
           <a href={resume} target="_blank" className={styles.navButton}>Résumé</a>
+          <button onClick={() => setShowResumeModal(true)} className={styles.navButton}>Generate Resume</button>
           <a href="#about" onClick={onToggleAbout} className={styles.navButton}>About Me</a>
           <a href="#experience" className={styles.navButton}>Experience</a>
           <a href="#projects" className={styles.navButton}>Project</a>
         </div>
       </div>
+
+      {showResumeModal && (
+        <ResumeGenerator onClose={() => setShowResumeModal(false)} />
+      )}
     </section>
   );
 };
