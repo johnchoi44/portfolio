@@ -2,18 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 
 import styles from "./Projects.module.css";
-// import projects from "../../data/projects.json";
+import { getProjects } from '../../utils';
 import ProjectCard from './ProjectCard';
 import PopUp from './PopUp';
-
-import { projects } from "../../constants";
 
 const Projects = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [selectedProject, setSelectedProject] = useState(null);
-
     const [hoverProject, setHoverProject] = useState(null);
     const [cursorPosition, setCursorPosition] = useState({x: 0, y: 0});
+
+    const projects = getProjects();
 
     const nextSlide = () => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % projects.length);

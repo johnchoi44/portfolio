@@ -1,4 +1,20 @@
 [
+  {
+      "role": "AI Engineer I",
+      "organisation": "Singlecase.AI",
+      "startDate": "Dec 2025",
+      "endDate": "Present",
+      "experiences": ["", "", "", "", "", "", "", ""],
+      "imageSrc": ""
+    },
+  {
+      "role": "AI Engineer Intern",
+      "organisation": "Singlecase.AI",
+      "startDate": "July 2025",
+      "endDate": "Dec 2025",
+      "experiences": ["BAML", "RAG", "Prompt Engineering", "LLM", "MCP", "", "", ""],
+      "imageSrc": ""
+    },
     {
       "role": "Machine Learning Engineer",
       "organisation": "Nittany Ai Advance",
