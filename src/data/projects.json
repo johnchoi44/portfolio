@@ -1,5 +1,22 @@
 [
     {
+      "title": "Resume Generator",
+      "imageSrc": "",
+      "description": "An AI-powered web app that intelligently tailors your resume to job opportunities using Google Gemini API",
+      "skills": ["#BAML", "#MongoDB", "#Gemini", "#Next.js"],
+      "demo": "https://resume-generator-7ufnb05dn-johns-projects-320c18e7.vercel.app/",
+      "source": "https://github.com/johnchoi44/resume-generator-app",
+      "screenshots": ["rg1", "rg2", "rg3"]
+    },
+    {
+      "title": "Nittany Business",
+      "imageSrc": "ps",
+      "description": "A full-stack B2B marketplace connecting sellers and buyers with browsing, checkout, seller management, and customer support features.",
+      "skills": ["#SQLite", "#SQL", "#React.js", "#Node.js"],
+      "source": "https://github.com/johnchoi44/NittanyBusiness",
+      "screenshots": ["nb1", "nb2", "nb3", "nb4", "nb5", "nb6", "nb7", "nb8"]
+    },
+    {
       "title": "Vibe.Ai",
       "imageSrc": "vibeai",
       "description": "Platform for users to generate personalized voice outputs and music covers using advanced AI technologies.",
@@ -9,8 +26,6 @@
       "youtubeLink": "https://www.youtube.com/embed/jwbqdBqSGfI?si=MdO1qErDuZ2NsiFQ",
       "screenshots": ["vibe1", "vibe2", "vibe3", "vibe4", "vibe5", "vibe6", "vibe7"]
     },
-
-    
     {
       "title": "Groop",
       "imageSrc": "groop",
@@ -23,7 +38,7 @@
     },
     {
       "title": "Book Recommendation System",
-      "imageSrc": "ds410book",
+      "imageSrc": "book_recommendation",
       "description": "Developed genre-specific book recommendation system using Amazon book reviews.",
       "skills": ["#Apache Spark", "#HPC", "#ML"],
       "demo": "https://www.example.com",
@@ -32,12 +47,12 @@
     },
     {
       "title": "Crime Severity Analysis in NYC",
-      "imageSrc": "w340",
+      "imageSrc": "340w",
       "description": "Analyzing and predicting crime severity across NYC using ML.",
       "skills": ["#ML", "#Data Analysis", "#Data Integration", "#Data Visualization"],
       "demo": "https://docs.google.com/presentation/d/1qLM_tuAN2niDSqgJhcYBwWSNY6nHni1OYO7s0cTM84E/edit?usp=sharing",
       "source": "https://github.com/johnchoi44/DS340W_Project",
-      "screenshots": ["w340"]
+      "screenshots": ["340w"]
     },
     {
       "title": "Workplace Social Media Activity",

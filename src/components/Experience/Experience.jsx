@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 
-// import skills from "../../data/skills.json";
-// import history from "../../data/history.json"
-// import { getImageUrl } from '../../utils'
-
-import { history } from "../../constants";
+import { getHistory } from '../../utils';
 
 import styles from "./Experience.module.css";
 
 const Experience = () => {
     const [showAll, setShowAll] = useState(false);
+    const history = getHistory();
 
     const handleToggleShow = () => {
         setShowAll(!showAll);
     };
-    
+
     const displayedHistory = showAll ? history : history.slice(0, 3);
 
     return(
