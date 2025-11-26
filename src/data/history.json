@@ -4,22 +4,22 @@
       "organisation": "Singlecase.AI",
       "startDate": "Dec 2025",
       "endDate": "Present",
-      "experiences": ["", "", "", "", "", "", "", ""],
-      "imageSrc": ""
+      "experiences": ["BAML", "LoRA", "LLM/SLM", "GEPA", "Prompt/Context Engineering", "MCP", "MongoDB", "TypeScript", "Fine Tuning"],
+      "imageSrc": "singlecase"
     },
   {
       "role": "AI Engineer Intern",
       "organisation": "Singlecase.AI",
       "startDate": "July 2025",
       "endDate": "Dec 2025",
-      "experiences": ["BAML", "RAG", "Prompt Engineering", "LLM", "MCP", "", "", ""],
-      "imageSrc": ""
+      "experiences": ["BAML", "RAG", "Prompt/Context Engineering", "LLM", "MCP", "Supabase", "TypeScript", "AI Agents", "Augemented Coding"],
+      "imageSrc": "singlecase"
     },
     {
       "role": "Machine Learning Engineer",
       "organisation": "Nittany Ai Advance",
       "startDate": "Aug 2024",
-      "endDate": "Present",
+      "endDate": "Dec 2024",
       "experiences": ["Computer Vision", "EfficientNetB3", "TensorFlow", "PyTorch", "KMeans", "PCA", "CNN", "Amazon EC2"],
       "imageSrc": "nittanyai"
     },
@@ -35,7 +35,7 @@
       "role": "Technology Tutor",
       "organisation": "Penn State IT Learning & Development",
       "startDate": "Aug 2023",
-      "endDate": "Present",
+      "endDate": "May 2025",
       "experiences": [
         "Technical Support", "Interpersonal Skills"
       ],

@@ -1,7 +1,7 @@
 [
     {
       "title": "Resume Generator",
-      "imageSrc": "",
+      "imageSrc": "resume",
       "description": "An AI-powered web app that intelligently tailors your resume to job opportunities using Google Gemini API",
       "skills": ["#BAML", "#MongoDB", "#Gemini", "#Next.js"],
       "demo": "https://resume-generator-7ufnb05dn-johns-projects-320c18e7.vercel.app/",
@@ -10,7 +10,7 @@
     },
     {
       "title": "Nittany Business",
-      "imageSrc": "ps",
+      "imageSrc": "nittany",
       "description": "A full-stack B2B marketplace connecting sellers and buyers with browsing, checkout, seller management, and customer support features.",
       "skills": ["#SQLite", "#SQL", "#React.js", "#Node.js"],
       "source": "https://github.com/johnchoi44/NittanyBusiness",

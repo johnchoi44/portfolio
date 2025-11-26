@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 
 import styles from "./Hero.module.css";
-// import { getImageUrl } from '../../utils';
 
 import { heroImage,
-white1,
 white2,
-white3,
 white4,
 white5,
 white6,
@@ -17,10 +14,38 @@ email,
 github,
 linkedin } from '../../assets'
 
-import ResumeGenerator from '../ResumeGenerator/ResumeGenerator';
+import { generateAndDownloadResume } from '../../utils/resumeAPI';
+import { getProjects } from '../../utils';
+import PopUp from '../Projects/PopUp';
 
 const Hero = ({ onToggleAbout }) => {
-  const [showResumeModal, setShowResumeModal] = useState(false);
+  const [keywords, setKeywords] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const [showProjectPopup, setShowProjectPopup] = useState(false);
+
+  const projects = getProjects();
+  const resumeGeneratorProject = projects.find(p => p.title === 'Resume Generator');
+
+  const handleGenerateResume = async () => {
+    if (!keywords.trim()) return;
+    setLoading(true);
+    setError(null);
+    setSuccess(false);
+
+    try {
+      await generateAndDownloadResume(null, keywords.trim());
+      setSuccess(true);
+      setKeywords('');
+      // Clear success message after 5 seconds
+      setTimeout(() => setSuccess(false), 5000);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <section className={styles.container}>
       <div className={styles.banner}>
@@ -66,17 +91,51 @@ const Hero = ({ onToggleAbout }) => {
           ><img src={linkedin} alt="Linkedin Logo" className={styles.logoImg} />
           </a>
         </div>
+        <div className={styles.resumeSection}>
+          <div className={styles.labelRow}>
+            <p className={styles.keywordLabel}>Generate a tailored resume with keywords:</p>
+            <div className={styles.infoIcon}>
+              ⓘ
+              <div className={styles.tooltip}>
+                <p>Want to learn more about me? Enter keywords relevant to your needs, and I'll generate a professionally formatted resume tailored to highlight my matching skills and experience.</p>
+                <button onClick={() => setShowProjectPopup(true)}>
+                  Learn more →
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className={styles.keywordInputGroup}>
+            <input
+              type="text"
+              className={styles.keywordInput}
+              value={keywords}
+              onChange={(e) => setKeywords(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleGenerateResume()}
+              placeholder="e.g., Golf, Guitar, Basketball"
+              disabled={loading}
+            />
+            <button
+              className={styles.generateBtn}
+              onClick={handleGenerateResume}
+              disabled={loading || !keywords.trim()}
+            >
+              {loading ? 'Generating...' : 'Generate'}
+            </button>
+          </div>
+          {error && <p className={styles.errorMsg}>{error}</p>}
+          {success && <p className={styles.successMsg}>✓ Resume downloaded!</p>}
+        </div>
+
         <div className={styles.navButtons}>
           <a href={resume} target="_blank" className={styles.navButton}>Résumé</a>
-          <button onClick={() => setShowResumeModal(true)} className={styles.navButton}>Generate Resume</button>
           <a href="#about" onClick={onToggleAbout} className={styles.navButton}>About Me</a>
           <a href="#experience" className={styles.navButton}>Experience</a>
           <a href="#projects" className={styles.navButton}>Project</a>
         </div>
       </div>
 
-      {showResumeModal && (
-        <ResumeGenerator onClose={() => setShowResumeModal(false)} />
+      {showProjectPopup && resumeGeneratorProject && (
+        <PopUp project={resumeGeneratorProject} onClose={() => setShowProjectPopup(false)} />
       )}
     </section>
   );

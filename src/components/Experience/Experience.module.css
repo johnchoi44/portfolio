@@ -103,7 +103,7 @@
 .historyItemDetails p {
     font-size: 15px;
     font-weight: 300;
-    color: var(--color-border);
+    color: var(--color-text-muted);
 }
 
 .historyItemDetails ul {

@@ -16,7 +16,7 @@ const Experience = () => {
 
     return(
         <section className={styles.container} id="experience">
-            <h2 className={styles.title}>Experinece</h2>
+            <h2 className={styles.title}>Experience</h2>
             <div className={styles.content}>
                 <ul className={styles.history}>
                     {displayedHistory.map((historyItem, id) => {
