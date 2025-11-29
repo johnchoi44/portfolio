@@ -2,6 +2,7 @@
 const historyImages = import.meta.glob('/src/assets/history/*.{png,jpg,jpeg,svg,webp}', { eager: true });
 const projectImages = import.meta.glob('/src/assets/projects/*.{png,jpg,jpeg,svg,webp}', { eager: true });
 const navImages = import.meta.glob('/src/assets/nav/*.{png,jpg,jpeg,svg,webp}', { eager: true });
+const heroImages = import.meta.glob('/src/assets/hero/*.{png,jpg,jpeg,svg,webp}', { eager: true });
 const allImages = import.meta.glob('/src/assets/**/*.{png,jpg,jpeg,svg,webp}', { eager: true });
 
 // Build lookup maps: { "nittanyai": "/assets/NittanyAI-abc123.png" }
@@ -29,6 +30,7 @@ const buildPathMap = (globResult) => {
 export const historyImageMap = buildImageMap(historyImages);
 export const projectImageMap = buildImageMap(projectImages);
 export const navImageMap = buildImageMap(navImages);
+export const heroImageMap = buildImageMap(heroImages);
 const pathMap = buildPathMap(allImages);
 
 export const resolveImage = (imageKey, category) => {
@@ -38,9 +40,10 @@ export const resolveImage = (imageKey, category) => {
   if (category === 'history') return historyImageMap[key] || null;
   if (category === 'projects') return projectImageMap[key] || null;
   if (category === 'nav') return navImageMap[key] || null;
+  if (category === 'hero') return heroImageMap[key] || null;
 
   // Fallback: try all
-  return projectImageMap[key] || historyImageMap[key] || navImageMap[key] || null;
+  return projectImageMap[key] || historyImageMap[key] || navImageMap[key] || heroImageMap[key] || null;
 };
 
 // Legacy getImageUrl function for components using path-based lookups

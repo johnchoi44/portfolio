@@ -1,0 +1,44 @@
+[
+  {
+    "id": "k1",
+    "imageSrc": "hero/white2.png",
+    "orbit": 1,
+    "description": "Description for keyword 1",
+    "projectLink": "#projects"
+  },
+  {
+    "id": "k2",
+    "imageSrc": "hero/white7.png",
+    "orbit": 1,
+    "description": "Description for keyword 2",
+    "projectLink": "#projects"
+  },
+  {
+    "id": "k3",
+    "imageSrc": "hero/white4.png",
+    "orbit": 1,
+    "description": "Description for keyword 3",
+    "projectLink": "#projects"
+  },
+  {
+    "id": "k4",
+    "imageSrc": "hero/white5.png",
+    "orbit": 2,
+    "description": "Description for keyword 4",
+    "projectLink": "#projects"
+  },
+  {
+    "id": "k5",
+    "imageSrc": "hero/white6.png",
+    "orbit": 2,
+    "description": "Description for keyword 5",
+    "projectLink": "#projects"
+  },
+  {
+    "id": "k6",
+    "imageSrc": "hero/white8.png",
+    "orbit": 3,
+    "description": "Description for keyword 6",
+    "projectLink": "#projects"
+  }
+]

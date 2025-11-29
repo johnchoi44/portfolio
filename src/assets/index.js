@@ -8,6 +8,8 @@ import white6 from "./hero/white6.png";
 import white7 from "./hero/white7.png";
 import white8 from "./hero/white8.png";
 
+import aie from "./hero/aie.png";
+
 import resume from "./hero/resume.pdf";
 
 import anp from "./history/ANP.svg";
@@ -95,5 +97,6 @@ export {
     vibe5,
     vibe6,
     vibe7,
-    vibeai
+    vibeai,
+    aie
 }

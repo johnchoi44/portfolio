@@ -11,6 +11,9 @@
   background: var(--color-background);
   color: var(--color-text);
   padding: 150px 0px;
+  /* Enable 3D depth ordering */
+  transform-style: preserve-3d;
+  perspective: 1000px;
 }
 
 .content {
@@ -19,6 +22,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    transform-style: preserve-3d;
 }
 
 .title {
@@ -32,16 +36,21 @@
 }
 
 .heroImgWrapper {
-  position: relative;
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* margin: 20px 0; */
   width: 300px;
   height: 300px;
   border-radius: 50%;
   background-color: var(--color-text);
   overflow: hidden;
+  /* Sun effect - bright and prominent */
+  box-shadow:
+    0 0 40px rgba(255, 255, 255, 0.3),
+    0 0 80px rgba(6, 182, 212, 0.2);
+  /* Position at z=0 in 3D space for proper depth ordering */
+  transform: translateZ(0);
   animation: floating 4s infinite ease-in-out;
 }
 
@@ -52,13 +61,13 @@
 
 @keyframes floating {
   0% {
-    transform: translateY(0);
+    transform: translateY(0) translateZ(0);
   }
   50% {
-    transform: translateY(8px);
+    transform: translateY(8px) translateZ(0);
   }
   100% {
-    transform: translateY(0);
+    transform: translateY(0) translateZ(0);
   }
 }
 
@@ -324,46 +333,191 @@
     padding: 8px 12px;
     text-align: center;
   }
+
+  /* Mobile orbit adjustments */
+  .banner {
+    height: 300px;
+  }
+
+  .banner .slider {
+    width: 150px;
+    height: 150px;
+    margin-top: -75px;
+    margin-left: -75px;
+  }
+
+  .orbit1 .item {
+    transform:
+      rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+      translateZ(220px);
+  }
+
+  .orbit2 .item {
+    transform:
+      rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+      translateZ(300px);
+  }
+
+  .orbit3 .item {
+    transform:
+      rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+      translateZ(380px);
+  }
+
+  .keywordTooltip {
+    max-width: 220px;
+    padding: 12px 14px;
+    font-size: 13px;
+  }
 }
 
 .banner {
-  width: 100%;
-  height: 50%;
-  text-align: center;
-  /* overflow: hidden; */
   position: relative;
-  transform: translateY(210px);
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-style: preserve-3d;
+  perspective: 1000px;
 }
 
+/* Base slider styles */
 .banner .slider {
   position: absolute;
-  width: 250px;
-  height: 250px;
-  top: 10%;
-  left: calc(50% - 100px);
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -100px;
   transform-style: preserve-3d;
-  transform: perspective(1000px);
-  animation: autoRun 20s linear infinite;
+  /* Use parent's perspective for shared 3D space */
+}
+
+/* Orbit-specific animations - inner faster, outer slower */
+.orbit1 {
+  animation: autoRun 35s linear infinite;
+}
+
+.orbit2 {
+  animation: autoRun 45s linear infinite;
+}
+
+.orbit3 {
+  animation: autoRun 55s linear infinite;
+}
+
+/* Paused state when a planet is clicked */
+.paused {
+  animation-play-state: paused !important;
 }
 
 @keyframes autoRun {
   from {
-    transform: perspective(1000px) rotateX(-9deg) rotateY(0deg);
+    transform: rotateX(-9deg) rotateY(0deg);
   } to {
-    transform: perspective(1000px) rotateX(-9deg) rotateY(360deg);
+    transform: rotateX(-9deg) rotateY(360deg);
   }
 }
 
 .banner .slider .item {
   position: absolute;
   inset: 0 0 0 0;
-  transform:
-    rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
-    translateZ(550px);
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
-.banner .slider .item img{
+/* Orbit-specific radii */
+.orbit1 .item {
+  transform:
+    rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+    translateZ(180px);
+}
+
+.orbit2 .item {
+  transform:
+    rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+    translateZ(240px);
+}
+
+.orbit3 .item {
+  transform:
+    rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+    translateZ(300px);
+}
+
+.banner .slider .item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Desaturated by default for visual hierarchy */
+  filter: saturate(0.6) brightness(0.8);
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+/* Hover effects */
+.banner .slider .item:hover img {
+  transform: scale(1.05);
+  filter: saturate(1) brightness(1);
+  box-shadow: 0 0 25px rgba(6, 182, 212, 0.6);
+}
+
+/* Active/clicked planet */
+.banner .slider .item.active img {
+  transform: scale(1.08);
+  filter: saturate(1) brightness(1.1);
+  box-shadow: 0 0 30px rgba(6, 182, 212, 0.8);
+}
+
+/* Dim other planets when one is active */
+.paused .item:not(.active) img {
+  opacity: 0.4;
+  filter: saturate(0.3) brightness(0.6);
+}
+
+/* Tooltip for clicked planet */
+.keywordTooltip {
+  position: fixed;
+  background: var(--color-secondary);
+  padding: 16px 20px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  max-width: 280px;
+  animation: tooltipFadeIn 0.2s ease;
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.keywordTooltip p {
+  font-size: 14px;
+  color: var(--color-text);
+  margin: 0 0 12px 0;
+  line-height: 1.5;
+}
+
+.keywordTooltip a {
+  display: inline-block;
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.keywordTooltip a:hover {
+  color: var(--color-primary-light);
+  text-decoration: underline;
 }

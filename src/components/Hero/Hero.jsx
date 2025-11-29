@@ -1,43 +1,87 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import styles from "./Hero.module.css";
 
 import { heroImage,
-white2,
-white4,
-white5,
-white6,
-white7,
-white8,
 resume,
 email,
 github,
 linkedin } from '../../assets'
 
 import { generateAndDownloadResume } from '../../utils/resumeAPI';
-import { getProjects } from '../../utils';
+import { getProjects, getKeywords } from '../../utils';
 import PopUp from '../Projects/PopUp';
 
 const Hero = ({ onToggleAbout }) => {
-  const [keywords, setKeywords] = useState('');
+  const [keywordInput, setKeywordInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [showProjectPopup, setShowProjectPopup] = useState(false);
 
+  // Orbit state
+  const [activeKeyword, setActiveKeyword] = useState(null);
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+  const tooltipRef = useRef(null);
+
   const projects = getProjects();
   const resumeGeneratorProject = projects.find(p => p.title === 'Resume Generator');
 
+  // Load keywords data and group by orbit
+  const keywordsData = getKeywords();
+  const orbit1Keywords = keywordsData.filter(k => k.orbit === 1);
+  const orbit2Keywords = keywordsData.filter(k => k.orbit === 2);
+  const orbit3Keywords = keywordsData.filter(k => k.orbit === 3);
+
+  // Handle click outside to close tooltip
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (tooltipRef.current && !tooltipRef.current.contains(e.target)) {
+        setActiveKeyword(null);
+      }
+    };
+
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') {
+        setActiveKeyword(null);
+      }
+    };
+
+    if (activeKeyword) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleEscape);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [activeKeyword]);
+
+  const handleKeywordClick = (keyword, e) => {
+    e.stopPropagation();
+    if (activeKeyword?.id === keyword.id) {
+      setActiveKeyword(null);
+    } else {
+      const rect = e.currentTarget.getBoundingClientRect();
+      setTooltipPosition({
+        x: rect.left + rect.width / 2,
+        y: rect.top - 10
+      });
+      setActiveKeyword(keyword);
+    }
+  };
+
   const handleGenerateResume = async () => {
-    if (!keywords.trim()) return;
+    if (!keywordInput.trim()) return;
     setLoading(true);
     setError(null);
     setSuccess(false);
 
     try {
-      await generateAndDownloadResume(null, keywords.trim());
+      await generateAndDownloadResume(null, keywordInput.trim());
       setSuccess(true);
-      setKeywords('');
+      setKeywordInput('');
       // Clear success message after 5 seconds
       setTimeout(() => setSuccess(false), 5000);
     } catch (err) {
@@ -46,21 +90,29 @@ const Hero = ({ onToggleAbout }) => {
       setLoading(false);
     }
   };
+
+  // Helper to render orbit items
+  const renderOrbitItems = (keywords, orbitClass) => (
+    <div
+      className={`${styles.slider} ${styles[orbitClass]} ${activeKeyword ? styles.paused : ''}`}
+      style={{ "--quantity": keywords.length }}
+    >
+      {keywords.map((keyword, index) => (
+        <div
+          key={keyword.id}
+          className={`${styles.item} ${activeKeyword?.id === keyword.id ? styles.active : ''}`}
+          style={{ "--position": index + 1 }}
+          onClick={(e) => handleKeywordClick(keyword, e)}
+        >
+          <img src={keyword.imageSrc} alt={keyword.id} />
+        </div>
+      ))}
+    </div>
+  );
   return (
     <section className={styles.container}>
       <div className={styles.banner}>
-        <div className={styles.slider} style={{"--quantity": 6}}>
-          {/* <div className={styles.item} style={{"--position": 1}}><img src={getImageUrl("hero/white1.png")} alt="keyword1" /></div> */}
-          <div className={styles.item} style={{"--position": 1}}><img src={white2} alt="keyword2" /></div>
-          <div className={styles.item} style={{"--position": 2}}><img src={white7} alt="keyword3" /></div>
-          <div className={styles.item} style={{"--position": 3}}><img src={white4} alt="keyword4" /></div>
-          <div className={styles.item} style={{"--position": 4}}><img src={white5} alt="keyword5" /></div>
-          <div className={styles.item} style={{"--position": 5}}><img src={white6} alt="keyword6" /></div>
-          <div className={styles.item} style={{"--position": 6}}><img src={white8} alt="keyword6" /></div>
-        </div>
-      </div>
-      <div className={styles.content}>
-        <h1 className={styles.title}>John Choi</h1>
+        {/* Hero image at center of 3D space */}
         <div className={styles.heroImgWrapper}>
           <img
             src={heroImage}
@@ -68,6 +120,30 @@ const Hero = ({ onToggleAbout }) => {
             className={styles.heroImg}
           />
         </div>
+
+        {/* Three orbital rings with different speeds */}
+        {orbit1Keywords.length > 0 && renderOrbitItems(orbit1Keywords, 'orbit1')}
+        {orbit2Keywords.length > 0 && renderOrbitItems(orbit2Keywords, 'orbit2')}
+        {orbit3Keywords.length > 0 && renderOrbitItems(orbit3Keywords, 'orbit3')}
+      </div>
+
+      {/* Tooltip for clicked keyword */}
+      {activeKeyword && (
+        <div
+          ref={tooltipRef}
+          className={styles.keywordTooltip}
+          style={{
+            left: tooltipPosition.x,
+            top: tooltipPosition.y,
+            transform: 'translate(-50%, -100%)'
+          }}
+        >
+          <p>{activeKeyword.description}</p>
+          <a href={activeKeyword.projectLink}>View related project →</a>
+        </div>
+      )}
+      <div className={styles.content}>
+        <h1 className={styles.title}>John Choi</h1>
         <div className={styles.socialButtons}>
           <a
             href="mailto:psuybc5222@gmail.com"
@@ -108,8 +184,8 @@ const Hero = ({ onToggleAbout }) => {
             <input
               type="text"
               className={styles.keywordInput}
-              value={keywords}
-              onChange={(e) => setKeywords(e.target.value)}
+              value={keywordInput}
+              onChange={(e) => setKeywordInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleGenerateResume()}
               placeholder="e.g., Golf, Guitar, Basketball"
               disabled={loading}
@@ -117,7 +193,7 @@ const Hero = ({ onToggleAbout }) => {
             <button
               className={styles.generateBtn}
               onClick={handleGenerateResume}
-              disabled={loading || !keywords.trim()}
+              disabled={loading || !keywordInput.trim()}
             >
               {loading ? 'Generating...' : 'Generate'}
             </button>
