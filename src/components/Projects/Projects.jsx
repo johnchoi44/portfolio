@@ -4,11 +4,9 @@ import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 import styles from "./Projects.module.css";
 import { getProjects } from '../../utils';
 import ProjectCard from './ProjectCard';
-import PopUp from './PopUp';
 
-const Projects = () => {
+const Projects = ({ selectedProject, setSelectedProject }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [selectedProject, setSelectedProject] = useState(null);
     const [hoverProject, setHoverProject] = useState(null);
     const [cursorPosition, setCursorPosition] = useState({x: 0, y: 0});
 
@@ -22,12 +20,8 @@ const Projects = () => {
         setCurrentIndex((prevIndex) => (prevIndex - 1 + projects.length) % projects.length);
     };
 
-    const handleProjectClick = (projects) => {
-        setSelectedProject(projects);
-    };
-
-    const closePopup = () => {
-        setSelectedProject(null);
+    const handleProjectClick = (project) => {
+        setSelectedProject(project);
     };
 
     const handleMouseEnter = (project, e) => {
@@ -99,7 +93,6 @@ const Projects = () => {
                     )
                 })}
             </div>
-            {selectedProject && <PopUp project={selectedProject} onClose={closePopup} />}
         </section>
     )
 }

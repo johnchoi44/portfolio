@@ -1,0 +1,58 @@
+[
+  {
+    "id": "k1",
+    "imageSrc": "hero/2025_1.png",
+    "orbit": 3,
+    "description": "Machine Learning",
+    "projectLink": "#projects"
+  },
+  {
+    "id": "k2",
+    "imageSrc": "hero/2025_2.png",
+    "orbit": 2,
+    "description": "AI Engineer",
+    "projectLink": "#projects"
+  },
+  {
+    "id": "k3",
+    "imageSrc": "hero/2025_3.png",
+    "orbit": 1,
+    "description": "LLMs",
+    "projectLink": "#projects"
+  },
+  {
+    "id": "k4",
+    "imageSrc": "hero/2025_4.png",
+    "orbit": 2,
+    "description": "Full Stack",
+    "projectLink": "#projects"
+  },
+  {
+    "id": "k5",
+    "imageSrc": "hero/2025_5.png",
+    "orbit": 3,
+    "description": "Problem Solving",
+    "projectLink": "#projects"
+  },
+  {
+    "id": "k6",
+    "imageSrc": "hero/2025_6.png",
+    "orbit": 3,
+    "description": "Prompt Engineering",
+    "projectLink": "#projects"
+  },
+  {
+    "id": "k7",
+    "imageSrc": "hero/2025_7.png",
+    "orbit": 2,
+    "description": "Data Analytics",
+    "projectLink": "#projects"
+  },
+  {
+    "id": "k8",
+    "imageSrc": "hero/2025_8.png",
+    "orbit": 1,
+    "description": "AI Agents",
+    "projectLink": "#projects"
+  }
+]
