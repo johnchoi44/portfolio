@@ -10,19 +10,30 @@ linkedin } from '../../assets'
 
 import { generateAndDownloadResume } from '../../utils/resumeAPI';
 import { getProjects, getKeywords } from '../../utils';
-import PopUp from '../Projects/PopUp';
 
-const Hero = ({ onToggleAbout }) => {
+const Hero = ({ onToggleAbout, onOpenProject }) => {
   const [keywordInput, setKeywordInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
-  const [showProjectPopup, setShowProjectPopup] = useState(false);
 
   // Orbit state
   const [activeKeyword, setActiveKeyword] = useState(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const tooltipRef = useRef(null);
+
+  // Dev settings state
+  const [showSettings, setShowSettings] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const settingsRef = useRef(null);
+  const heroImgRef = useRef(null);
+  const defaultSettings = {
+    orbit1: { speed: 20, yPosition: 20, radius: 239, imageSize: 80, reverse: false, tilt: 9 },
+    orbit2: { speed: 45, yPosition: 50, radius: 240, imageSize: 90, reverse: false, tilt: 9 },
+    orbit3: { speed: 55, yPosition: 80, radius: 300, imageSize: 80, reverse: false, tilt: 9 },
+    global: { perspective: 1000, corona: true }
+  };
+  const [orbitSettings, setOrbitSettings] = useState(defaultSettings);
 
   const projects = getProjects();
   const resumeGeneratorProject = projects.find(p => p.title === 'Resume Generator');
@@ -58,16 +69,49 @@ const Hero = ({ onToggleAbout }) => {
     };
   }, [activeKeyword]);
 
+  // Handle click outside to close settings panel
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        settingsRef.current &&
+        !settingsRef.current.contains(e.target) &&
+        heroImgRef.current &&
+        !heroImgRef.current.contains(e.target)
+      ) {
+        setShowSettings(false);
+      }
+    };
+
+    if (showSettings) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showSettings]);
+
   const handleKeywordClick = (keyword, e) => {
     e.stopPropagation();
     if (activeKeyword?.id === keyword.id) {
       setActiveKeyword(null);
     } else {
       const rect = e.currentTarget.getBoundingClientRect();
-      setTooltipPosition({
-        x: rect.left + rect.width / 2,
-        y: rect.top - 10
-      });
+      const tooltipWidth = 280; // max-width from CSS
+      const tooltipHeight = 100; // approximate height
+      const padding = 16; // minimum distance from edges
+
+      // Calculate x position, clamped to viewport
+      let x = rect.left + rect.width / 2;
+      const minX = tooltipWidth / 2 + padding;
+      const maxX = window.innerWidth - tooltipWidth / 2 - padding;
+      x = Math.max(minX, Math.min(maxX, x));
+
+      // Check if tooltip should flip below (not enough room above)
+      const shouldFlipBelow = rect.top < tooltipHeight + padding;
+      const y = shouldFlipBelow ? rect.bottom + 10 : rect.top - 10;
+
+      setTooltipPosition({ x, y, flipped: shouldFlipBelow });
       setActiveKeyword(keyword);
     }
   };
@@ -91,6 +135,50 @@ const Hero = ({ onToggleAbout }) => {
     }
   };
 
+  // Update orbit setting helper
+  const updateOrbitSetting = (orbit, key, value) => {
+    setOrbitSettings(prev => ({
+      ...prev,
+      [orbit]: { ...prev[orbit], [key]: value }
+    }));
+  };
+
+  // Copy settings to clipboard
+  const copySettings = () => {
+    const settingsText = JSON.stringify(orbitSettings, null, 2);
+    navigator.clipboard.writeText(settingsText);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  // Reset to default settings
+  const resetSettings = () => {
+    setOrbitSettings(defaultSettings);
+  };
+
+  // CSS variables for dynamic orbit settings
+  const bannerStyle = {
+    '--orbit1-speed': `${orbitSettings.orbit1.speed}s`,
+    '--orbit1-y': `${orbitSettings.orbit1.yPosition}%`,
+    '--orbit1-radius': `${orbitSettings.orbit1.radius}px`,
+    '--orbit1-size': `${orbitSettings.orbit1.imageSize}px`,
+    '--orbit1-direction': orbitSettings.orbit1.reverse ? 'reverse' : 'normal',
+    '--orbit1-tilt': `${orbitSettings.orbit1.tilt}deg`,
+    '--orbit2-speed': `${orbitSettings.orbit2.speed}s`,
+    '--orbit2-y': `${orbitSettings.orbit2.yPosition}%`,
+    '--orbit2-radius': `${orbitSettings.orbit2.radius}px`,
+    '--orbit2-size': `${orbitSettings.orbit2.imageSize}px`,
+    '--orbit2-direction': orbitSettings.orbit2.reverse ? 'reverse' : 'normal',
+    '--orbit2-tilt': `${orbitSettings.orbit2.tilt}deg`,
+    '--orbit3-speed': `${orbitSettings.orbit3.speed}s`,
+    '--orbit3-y': `${orbitSettings.orbit3.yPosition}%`,
+    '--orbit3-radius': `${orbitSettings.orbit3.radius}px`,
+    '--orbit3-size': `${orbitSettings.orbit3.imageSize}px`,
+    '--orbit3-direction': orbitSettings.orbit3.reverse ? 'reverse' : 'normal',
+    '--orbit3-tilt': `${orbitSettings.orbit3.tilt}deg`,
+    '--perspective': `${orbitSettings.global.perspective}px`
+  };
+
   // Helper to render orbit items
   const renderOrbitItems = (keywords, orbitClass) => (
     <div
@@ -111,13 +199,23 @@ const Hero = ({ onToggleAbout }) => {
   );
   return (
     <section className={styles.container}>
-      <div className={styles.banner}>
+      <div className={styles.banner} style={bannerStyle}>
         {/* Hero image at center of 3D space */}
-        <div className={styles.heroImgWrapper}>
+        <div
+          ref={heroImgRef}
+          className={styles.heroImgWrapper}
+          style={{
+            ...(orbitSettings.global.corona ? {} : { boxShadow: 'none' }),
+            ...(import.meta.env.DEV ? { cursor: 'pointer' } : {})
+          }}
+          onClick={import.meta.env.DEV ? () => setShowSettings(!showSettings) : undefined}
+        >
           <img
             src={heroImage}
             alt="Hero image of me"
             className={styles.heroImg}
+            style={import.meta.env.DEV ? { cursor: 'pointer' } : {}}
+            onClick={import.meta.env.DEV ? () => setShowSettings(!showSettings) : undefined}
           />
         </div>
 
@@ -131,11 +229,11 @@ const Hero = ({ onToggleAbout }) => {
       {activeKeyword && (
         <div
           ref={tooltipRef}
-          className={styles.keywordTooltip}
+          className={`${styles.keywordTooltip} ${tooltipPosition.flipped ? styles.flipped : ''}`}
           style={{
             left: tooltipPosition.x,
             top: tooltipPosition.y,
-            transform: 'translate(-50%, -100%)'
+            transform: tooltipPosition.flipped ? 'translate(-50%, 0)' : 'translate(-50%, -100%)'
           }}
         >
           <p>{activeKeyword.description}</p>
@@ -174,7 +272,7 @@ const Hero = ({ onToggleAbout }) => {
               ⓘ
               <div className={styles.tooltip}>
                 <p>Want to learn more about me? Enter keywords relevant to your needs, and I'll generate a professionally formatted resume tailored to highlight my matching skills and experience.</p>
-                <button onClick={() => setShowProjectPopup(true)}>
+                <button onClick={() => onOpenProject(resumeGeneratorProject)}>
                   Learn more →
                 </button>
               </div>
@@ -210,8 +308,125 @@ const Hero = ({ onToggleAbout }) => {
         </div>
       </div>
 
-      {showProjectPopup && resumeGeneratorProject && (
-        <PopUp project={resumeGeneratorProject} onClose={() => setShowProjectPopup(false)} />
+      {/* Dev-only Settings Panel */}
+      {import.meta.env.DEV && showSettings && (
+            <div ref={settingsRef} className={styles.settingsPanel}>
+              <h3>Orbit Settings</h3>
+
+              <div className={styles.settingsGroup}>
+                <h4>Global</h4>
+                <div className={styles.settingRow}>
+                  <label>Perspective</label>
+                  <input
+                    type="range"
+                    min="200"
+                    max="2000"
+                    step="100"
+                    value={orbitSettings.global.perspective}
+                    onChange={(e) => setOrbitSettings(prev => ({
+                      ...prev,
+                      global: { ...prev.global, perspective: Number(e.target.value) }
+                    }))}
+                  />
+                  <span>{orbitSettings.global.perspective}px</span>
+                </div>
+                <div className={styles.settingRow}>
+                  <label>Corona</label>
+                  <input
+                    type="checkbox"
+                    checked={orbitSettings.global.corona}
+                    onChange={(e) => setOrbitSettings(prev => ({
+                      ...prev,
+                      global: { ...prev.global, corona: e.target.checked }
+                    }))}
+                  />
+                  <span>{orbitSettings.global.corona ? 'On' : 'Off'}</span>
+                </div>
+              </div>
+
+              {['orbit1', 'orbit2', 'orbit3'].map((orbit, idx) => (
+                <div key={orbit} className={styles.settingsGroup}>
+                  <h4>Orbit {idx + 1}</h4>
+                  <div className={styles.settingRow}>
+                    <label>Size</label>
+                    <input
+                      type="range"
+                      min="40"
+                      max="150"
+                      value={orbitSettings[orbit].imageSize}
+                      onChange={(e) => updateOrbitSetting(orbit, 'imageSize', Number(e.target.value))}
+                    />
+                    <span>{orbitSettings[orbit].imageSize}px</span>
+                  </div>
+                  <div className={styles.settingRow}>
+                    <label>Speed</label>
+                    <input
+                      type="range"
+                      min="10"
+                      max="120"
+                      value={orbitSettings[orbit].speed}
+                      onChange={(e) => updateOrbitSetting(orbit, 'speed', Number(e.target.value))}
+                    />
+                    <span>{orbitSettings[orbit].speed}s</span>
+                  </div>
+                  <div className={styles.settingRow}>
+                    <label>Y Position</label>
+                    <input
+                      type="range"
+                      min="-50"
+                      max="150"
+                      value={orbitSettings[orbit].yPosition}
+                      onChange={(e) => updateOrbitSetting(orbit, 'yPosition', Number(e.target.value))}
+                    />
+                    <span>{orbitSettings[orbit].yPosition}%</span>
+                  </div>
+                  <div className={styles.settingRow}>
+                    <label>Radius</label>
+                    <input
+                      type="range"
+                      min="100"
+                      max="500"
+                      value={orbitSettings[orbit].radius}
+                      onChange={(e) => updateOrbitSetting(orbit, 'radius', Number(e.target.value))}
+                    />
+                    <span>{orbitSettings[orbit].radius}px</span>
+                  </div>
+                  <div className={styles.settingRow}>
+                    <label>Tilt</label>
+                    <input
+                      type="range"
+                      min="0"
+                      max="45"
+                      value={orbitSettings[orbit].tilt}
+                      onChange={(e) => updateOrbitSetting(orbit, 'tilt', Number(e.target.value))}
+                    />
+                    <span>{orbitSettings[orbit].tilt}°</span>
+                  </div>
+                  <div className={styles.settingRow}>
+                    <label>Reverse</label>
+                    <input
+                      type="checkbox"
+                      checked={orbitSettings[orbit].reverse}
+                      onChange={(e) => updateOrbitSetting(orbit, 'reverse', e.target.checked)}
+                    />
+                    <span>{orbitSettings[orbit].reverse ? 'Yes' : 'No'}</span>
+                  </div>
+                </div>
+              ))}
+
+              <button
+                className={`${styles.copyBtn} ${copied ? styles.copied : ''}`}
+                onClick={copySettings}
+              >
+                {copied ? '✓ Copied!' : 'Copy Settings'}
+              </button>
+              <button
+                className={styles.resetBtn}
+                onClick={resetSettings}
+              >
+                Reset to Default
+              </button>
+            </div>
       )}
     </section>
   );
