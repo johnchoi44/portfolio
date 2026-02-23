@@ -9,7 +9,7 @@ github,
 linkedin } from '../../assets'
 
 import { generateAndDownloadResume } from '../../utils/resumeAPI';
-import { getProjects, getKeywords } from '../../utils';
+import { getProjects, getKeywords, getHeroSettings } from '../../utils';
 
 const Hero = ({ onToggleAbout, onOpenProject }) => {
   const [keywordInput, setKeywordInput] = useState('');
@@ -38,6 +38,7 @@ const Hero = ({ onToggleAbout, onOpenProject }) => {
   const [projects, setProjects] = useState([]);
   useEffect(() => {
     getProjects().then(setProjects);
+    getHeroSettings().then(setOrbitSettings);
   }, []);
   const resumeGeneratorProject = projects.find(p => p.title === 'Resume Generator');
 

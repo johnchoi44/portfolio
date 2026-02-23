@@ -2,6 +2,7 @@ import historyData from '../data/history.json';
 import projectsData from '../data/projects.json';
 import keywordsData from '../data/keywords.json';
 import blogsData from '../data/blogs.json';
+import heroSettingsData from '../data/heroSettings.json';
 import { resolveImage } from './imageRegistry';
 import { supabase } from '../admin/lib/supabaseClient';
 
@@ -82,6 +83,20 @@ export const getBlogs = async () => {
       ...blog,
       imageSrc: resolveImage(blog.imageSrc, 'blogs'),
     }));
+  }
+};
+
+export const getHeroSettings = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('hero_settings')
+      .select('settings')
+      .limit(1)
+      .single();
+    if (error) throw error;
+    return data.settings;
+  } catch {
+    return heroSettingsData;
   }
 };
 

@@ -7,6 +7,7 @@ import ResumeManager from './components/ResumeManager'
 import ExperienceManager from './components/ExperienceManager'
 import ProjectManager from './components/ProjectManager'
 import BlogManager from './components/BlogManager'
+import SolarSystemEditor from './components/SolarSystemEditor'
 import ExportPanel from './components/ExportPanel'
 import styles from './AdminApp.module.css'
 
@@ -21,6 +22,7 @@ const AdminApp = () => {
             <Route path="resume" element={<ResumeManager />} />
             <Route path="experience" element={<ExperienceManager />} />
             <Route path="projects" element={<ProjectManager />} />
+            <Route path="solar-system" element={<SolarSystemEditor />} />
             <Route path="blogs" element={<BlogManager />} />
             <Route path="export" element={<ExportPanel />} />
             <Route path="*" element={<Navigate to="about" replace />} />

@@ -92,6 +92,18 @@ export const exportBlogs = async () => {
   download(JSON.stringify(blogs, null, 2), 'blogs.json')
 }
 
+export const exportHeroSettings = async () => {
+  const { data, error } = await supabase
+    .from('hero_settings')
+    .select('settings')
+    .limit(1)
+    .single()
+
+  if (error) throw new Error(error.message)
+
+  download(JSON.stringify(data.settings, null, 2), 'heroSettings.json')
+}
+
 export const downloadResume = async () => {
   const { data } = supabase.storage.from(BUCKET).getPublicUrl(RESUME_PATH)
   window.open(data.publicUrl, '_blank')
