@@ -35,6 +35,7 @@ const pathMap = buildPathMap(allImages);
 
 export const resolveImage = (imageKey, category) => {
   if (!imageKey) return null;
+  if (imageKey.startsWith('http')) return imageKey;
   const key = imageKey.toLowerCase();
 
   if (category === 'history') return historyImageMap[key] || null;

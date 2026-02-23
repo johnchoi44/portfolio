@@ -1,0 +1,31 @@
+-- Update the about content with the full text
+UPDATE about SET content = 'I''m John Choi, a Penn State graduate in Computational Data Science with a minor in Mathematics, and I currently work as an AI Engineer focused on building production-ready AI products.
+
+In my work, I''ve utilized AI by designing and shipping structured LLM systems end-to-end: building AI assistants that perform tool selection and parameter extraction, integrating those systems with real APIs/databases, and improving reliability through schema design, prompt iteration, and type-safe pipelines. I''ve implemented conversation memory and context controls, optimized token usage and output quality, and combined model outputs with deterministic logic (including simulation-based evaluators) to ensure correctness and trustworthy user experience in production.
+
+Previously, as a Machine Learning Engineer at Nittany AI Advance, I worked with the PlantVillage team to develop computer vision models using Python and TensorFlow, built outlier-detection algorithms, and processed large-scale agricultural datasets on Amazon EC2. Outside of work, I enjoy golf, guitar, basketball, soccer, music, and movies.';
+
+-- Seed experience entries
+INSERT INTO experience (role, organisation, start_date, end_date, experiences, image_src, sort_order) VALUES
+('AI Engineer I', 'Singlecase.AI', 'Dec 2025', 'Present', ARRAY['BAML','LoRA','LLM/SLM','GEPA','Prompt/Context Engineering','MCP','MongoDB','TypeScript','Fine Tuning'], 'singlecase', 0),
+('AI Engineer Intern', 'Singlecase.AI', 'July 2025', 'Dec 2025', ARRAY['BAML','RAG','Prompt/Context Engineering','LLM','MCP','Supabase','TypeScript','AI Agents'], 'singlecase', 1),
+('Machine Learning Engineer', 'Nittany Ai Advance', 'Aug 2024', 'Dec 2024', ARRAY['Computer Vision','EfficientNetB3','TensorFlow','PyTorch','KMeans','PCA','CNN','Amazon EC2'], 'nittanyai', 2),
+('Undergraduate Research Assistant', 'Penn State Listening Lab', 'Jan 2024', 'Aug 2024', ARRAY['Data Collection','Machine Learning'], 'pennstate', 3),
+('Technology Tutor', 'Penn State IT Learning & Development', 'Aug 2023', 'May 2025', ARRAY['Technical Support','Interpersonal Skills'], 'pennstate', 4),
+('Data Science Intern', 'Advanced Nano Products Co., Ltd (ANP)', 'May 2023', 'Aug 2023', ARRAY['Data Management','ESG'], 'anp', 5),
+('Development Team Intern', 'Truwin Co Ltd', 'Aug 2022', 'May 2022', ARRAY['Research','Vehicle Motor','Vehicle Battery'], 'truwin', 6),
+('AI Engineering Intern', 'Cybermed Inc.', 'Feb 2022', 'May 2022', ARRAY['Chatbot Development','Sales Automation'], 'cybermed', 7),
+('Military Police Sergeant and Squad Leader', 'Republic of Korea Air Force - 17th Fighter Wing', 'May 2020', 'Feb 2022', ARRAY['Leadership','Team Management','Interpersonal Skills'], 'rokaf', 8),
+('Intelligent Infra, Technology Research Center Intern', 'Korea Institute of Science and Technology Information (KISTI)', 'Sep 2019', 'Dec 2019', ARRAY['PyTorch','Caffe','Lightweight Deep Learning Model'], 'kisti', 9);
+
+-- Seed project entries
+INSERT INTO projects (title, image_src, description, skills, demo, source, youtube_link, screenshots, sort_order) VALUES
+('Resume Generator', 'resume', 'An AI-powered web app that intelligently tailors your resume to job opportunities using Google Gemini API', ARRAY['#BAML','#MongoDB','#Gemini','#Next.js'], 'https://resume-generator-7ufnb05dn-johns-projects-320c18e7.vercel.app/', 'https://github.com/johnchoi44/resume-generator-app', NULL, ARRAY['rg1','rg2','rg3'], 0),
+('Nittany Business', 'nittany', 'A full-stack B2B marketplace connecting sellers and buyers with browsing, checkout, seller management, and customer support features.', ARRAY['#SQLite','#SQL','#React.js','#Node.js'], NULL, 'https://github.com/johnchoi44/NittanyBusiness', NULL, ARRAY['nb1','nb2','nb3','nb4','nb5','nb6','nb7','nb8'], 1),
+('Vibe.Ai', 'vibeai', 'Platform for users to generate personalized voice outputs and music covers using advanced AI technologies.', ARRAY['#Voice Cloning','#Music Cover Gen','#React.js','#Node.js'], 'https://youtu.be/jwbqdBqSGfI?si=I5s_7gKNqidYZbqS', 'https://github.com/johnchoi44/VibeAI', 'https://www.youtube.com/embed/jwbqdBqSGfI?si=MdO1qErDuZ2NsiFQ', ARRAY['vibe1','vibe2','vibe3','vibe4','vibe5','vibe6','vibe7'], 2),
+('Groop', 'groop', 'Real-time messaging platform which match people based on their MBTI and interests.', ARRAY['#Google Cloud Vertex AI','#Firebase','#React.js','#Node.js'], 'https://youtu.be/R4BUHn4X1lk', 'https://github.com/johnchoi44/GROOP', 'https://www.youtube.com/embed/R4BUHn4X1lk?si=hTGA7gXSWcRRI0zQ', ARRAY['groop1','groop2','groop3','groop4','groop5','groop6','groop7','groop8'], 3),
+('Book Recommendation System', 'book_recommendation', 'Developed genre-specific book recommendation system using Amazon book reviews.', ARRAY['#Apache Spark','#HPC','#ML'], 'https://www.example.com', 'https://github.com/johnchoi44/BookRecommendationSystem', NULL, ARRAY['ds410'], 4),
+('Crime Severity Analysis in NYC', '340w', 'Analyzing and predicting crime severity across NYC using ML.', ARRAY['#ML','#Data Analysis','#Data Integration','#Data Visualization'], 'https://docs.google.com/presentation/d/1qLM_tuAN2niDSqgJhcYBwWSNY6nHni1OYO7s0cTM84E/edit?usp=sharing', 'https://github.com/johnchoi44/DS340W_Project', NULL, ARRAY['340w'], 5),
+('Workplace Social Media Activity', 'ps', 'Research project investigating the impact of social/technical changes on organizational behaviors.', ARRAY['#Data Scraping','#Sentiment Analysis','#Twitter API'], 'https://www.example.com', 'https://github.com/johnchoi44/ProjectTwitter', NULL, ARRAY['twitter'], 6),
+('Chatbot Development', 'chatbot', 'Analyzed historical customer inquiries to model and develop a customer service chabot.', ARRAY['#SQL','#KakaoTalk API'], 'http://pf.kakao.com/_CXxmeb', 'https://www.linkedin.com/in/choi-yongjun/details/projects/', NULL, ARRAY['chatbot1'], 7),
+('MegaByte', 'datafest', 'Analyzed real-world dataset provided by the AMA to design a platform to match a client to the appropriate attorney.', ARRAY['#R','#Tableau','#Data Visualization','#Data Analysis'], 'https://www.youtube.com/watch?v=SAb4ZrnstgU&t=96s', 'https://datafest.psu.edu/previous/_2023/', 'https://www.youtube.com/embed/SAb4ZrnstgU?si=RqQnwDxgvA_JNIsO', ARRAY[''], 8);

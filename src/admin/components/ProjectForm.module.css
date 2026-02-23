@@ -1,0 +1,177 @@
+.container {
+  max-width: 600px;
+}
+
+.heading {
+  font-family: 'Outfit', sans-serif;
+  margin: 0 0 1.5rem 0;
+  font-size: 1.5rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.field span {
+  color: #8892b0;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.field input,
+.field textarea {
+  padding: 0.6rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: #0f3460;
+  color: #fff;
+  font-size: 0.95rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: #e94560;
+}
+
+.field textarea {
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.row {
+  display: flex;
+  gap: 1rem;
+}
+
+.row .field {
+  flex: 1;
+}
+
+.tagInput {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tagInput input {
+  flex: 1;
+  padding: 0.6rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: #0f3460;
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.tagInput input:focus {
+  outline: none;
+  border-color: #e94560;
+}
+
+.addTagBtn {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: none;
+  color: #8892b0;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.addTagBtn:hover {
+  border-color: #e94560;
+  color: #fff;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.6rem;
+  background: rgba(233, 69, 96, 0.15);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: #e94560;
+}
+
+.tag button {
+  background: none;
+  border: none;
+  color: #e94560;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.saveBtn {
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  background: #e94560;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.saveBtn:hover {
+  background: #c73652;
+}
+
+.saveBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cancelBtn {
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: none;
+  color: #8892b0;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cancelBtn:hover {
+  border-color: #fff;
+  color: #fff;
+}
+
+.error {
+  color: #e94560;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.success {
+  color: #4caf50;
+  font-size: 0.875rem;
+  margin: 0;
+}

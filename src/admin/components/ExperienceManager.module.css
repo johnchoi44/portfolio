@@ -1,0 +1,159 @@
+.container {
+  max-width: 700px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.heading {
+  font-family: 'Outfit', sans-serif;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.addBtn {
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  border: none;
+  background: #e94560;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.addBtn:hover {
+  background: #c73652;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: #0f3460;
+  border-radius: 8px;
+}
+
+.arrows {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.arrows button {
+  background: none;
+  border: 1px solid #333;
+  color: #8892b0;
+  border-radius: 4px;
+  width: 24px;
+  height: 20px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.arrows button:hover:not(:disabled) {
+  border-color: #e94560;
+  color: #fff;
+}
+
+.arrows button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.info strong {
+  font-size: 0.95rem;
+}
+
+.org {
+  color: #8892b0;
+  font-size: 0.85rem;
+}
+
+.dates {
+  color: #5a6480;
+  font-size: 0.8rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.editBtn {
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #8892b0;
+  background: none;
+  color: #8892b0;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.editBtn:hover {
+  border-color: #fff;
+  color: #fff;
+}
+
+.deleteBtn {
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #e94560;
+  background: none;
+  color: #e94560;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.deleteBtn:hover {
+  background: #e94560;
+  color: #fff;
+}
+
+.error {
+  color: #e94560;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.success {
+  color: #4caf50;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.empty {
+  color: #5a6480;
+  text-align: center;
+  padding: 2rem;
+}
+
+.loading {
+  color: #8892b0;
+  padding: 2rem;
+}

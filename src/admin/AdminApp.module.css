@@ -1,0 +1,14 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background: #1a1a2e;
+}
+
+.content {
+  flex: 1;
+  margin-left: 220px;
+  padding: 2rem;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  max-width: 900px;
+}

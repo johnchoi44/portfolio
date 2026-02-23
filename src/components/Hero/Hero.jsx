@@ -302,9 +302,9 @@ const Hero = ({ onToggleAbout, onOpenProject }) => {
 
         <div className={styles.navButtons}>
           <a href={resume} target="_blank" className={styles.navButton}>Résumé</a>
-          <a href="#about" onClick={onToggleAbout} className={styles.navButton}>About Me</a>
-          <a href="#experience" className={styles.navButton}>Experience</a>
-          <a href="#projects" className={styles.navButton}>Project</a>
+          <a onClick={(e) => { e.preventDefault(); onToggleAbout(); document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }); }} className={styles.navButton} style={{ cursor: 'pointer' }}>About Me</a>
+          <a onClick={() => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' })} className={styles.navButton} style={{ cursor: 'pointer' }}>Experience</a>
+          <a onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })} className={styles.navButton} style={{ cursor: 'pointer' }}>Project</a>
         </div>
       </div>
 

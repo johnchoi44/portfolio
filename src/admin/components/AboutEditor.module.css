@@ -1,0 +1,70 @@
+.container {
+  max-width: 700px;
+}
+
+.heading {
+  font-family: 'Outfit', sans-serif;
+  margin: 0 0 1.5rem 0;
+  font-size: 1.5rem;
+}
+
+.textarea {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #0f3460;
+  color: #fff;
+  font-size: 0.95rem;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: #e94560;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.saveBtn {
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  background: #e94560;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.saveBtn:hover {
+  background: #c73652;
+}
+
+.saveBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error {
+  color: #e94560;
+  font-size: 0.875rem;
+}
+
+.success {
+  color: #4caf50;
+  font-size: 0.875rem;
+}
+
+.loading {
+  color: #8892b0;
+  padding: 2rem;
+}

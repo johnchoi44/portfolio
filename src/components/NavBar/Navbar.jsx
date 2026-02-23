@@ -24,22 +24,22 @@ const Navbar = () => {
                     alt="menu-button"
                     onClick={() => setMenuOpen(!menuOpen)}
                 />
-                <ul 
+                <ul
                     className={`${styles.menuItems} ${menuOpen && styles.menuOpen}`}
                     onClick={() => setMenuOpen(false)}
                 >
-                    
+
                     <li>
-                        <a href="#about">About</a>
+                        <a onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}>About</a>
                     </li>
                     <li>
-                        <a href="#experience">Experience</a>
+                        <a onClick={() => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' })}>Experience</a>
                     </li>
                     <li>
-                        <a href="#projects">Projects</a>
+                        <a onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}>Projects</a>
                     </li>
                     <li>
-                        <a href="#contact">Contact</a>
+                        <a onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>Contact</a>
                     </li>
                 </ul>
             </div>

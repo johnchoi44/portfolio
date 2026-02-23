@@ -11,20 +11,15 @@ const About = () => {
                 <li className={styles.aboutItem}>
                     <div className={styles.aboutItemText}>
                         <p>
-                            My name is John Choi, and I am a senior at The Pennsylvania State University, majoring in Computational Data Science
-                            with a minor in Mathemathics. My academic journey is enriched by a variety of internships
-                            and research experineces that have equipped me with a strong foundation in machine learning, AI, and data analysis.
+                            I'm John Choi, a Penn State graduate in Computational Data Science with a minor in Mathematics, and I currently work as an AI Engineer focused on building production-ready AI products.
                         </p>
                         <br />
                         <p>
-                            Most recently, as a Machine Learning Engineer at Nittany Ai Advance, I collaborated with the PlantVillage
-                            team to create advanced computer vision models using Python and TensorFlow. My work has included developing
-                            an algorithms for outlier dection and processing large-scale argriculural datasets stored on Amazon EC2.
+                            In my work, I've utilized AI by designing and shipping structured LLM systems end-to-end: building AI assistants that perform tool selection and parameter extraction, integrating those systems with real APIs/databases, and improving reliability through schema design, prompt iteration, and type-safe pipelines. I've implemented conversation memory and context controls, optimized token usage and output quality, and combined model outputs with deterministic logic (including simulation-based evaluators) to ensure correctness and trustworthy user experience in production.
                         </p>
                         <br />
                         <p>
-                            Beyond academics, I am a curious lifelong learner who thrives on exploring interdisciplinary applications of AI to solve
-                            real-world problems. In my free time, I enjoy golf, guitar, basketball, soccer, music, and movies.
+                            Previously, as a Machine Learning Engineer at Nittany AI Advance, I worked with the PlantVillage team to develop computer vision models using Python and TensorFlow, built outlier-detection algorithms, and processed large-scale agricultural datasets on Amazon EC2. Outside of work, I enjoy golf, guitar, basketball, soccer, music, and movies.
                         </p>
                     </div>
                 </li>
