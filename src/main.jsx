@@ -8,6 +8,7 @@ import "@fontsource/outfit"
 import "@fontsource/roboto"
 
 const AdminApp = lazy(() => import('./admin/AdminApp.jsx'))
+const BlogsAdminApp = lazy(() => import('./blogs-admin/BlogsAdminApp.jsx'))
 const BlogList = lazy(() => import('./components/Blogs/BlogList.jsx'))
 const BlogPost = lazy(() => import('./components/Blogs/BlogPost.jsx'))
 
@@ -18,6 +19,11 @@ createRoot(document.getElementById('root')).render(
         <Route path="/admin/*" element={
           <Suspense fallback={<div style={{ color: '#fff', padding: '2rem' }}>Loading admin...</div>}>
             <AdminApp />
+          </Suspense>
+        } />
+        <Route path="/blogs-admin/*" element={
+          <Suspense fallback={<div style={{ color: '#fff', padding: '2rem' }}>Loading...</div>}>
+            <BlogsAdminApp />
           </Suspense>
         } />
         <Route path="/blogs" element={

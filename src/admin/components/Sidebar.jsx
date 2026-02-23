@@ -9,7 +9,7 @@ const links = [
   { to: '/admin/resume', label: 'Resume', icon: FiFileText },
   { to: '/admin/experience', label: 'Experience', icon: FiBriefcase },
   { to: '/admin/projects', label: 'Projects', icon: FiFolder },
-  { to: '/admin/blogs', label: 'Blogs', icon: FiEdit },
+  { to: '/blogs-admin', label: 'Blogs', icon: FiEdit },
   { to: '/admin/export', label: 'Export', icon: FiDownload },
 ]
 

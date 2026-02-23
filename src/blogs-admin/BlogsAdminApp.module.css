@@ -1,0 +1,7 @@
+@import "../vars.css";
+
+.shell {
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
