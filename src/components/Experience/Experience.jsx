@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { getHistory } from '../../utils';
 
@@ -6,7 +6,11 @@ import styles from "./Experience.module.css";
 
 const Experience = () => {
     const [showAll, setShowAll] = useState(false);
-    const history = getHistory();
+    const [history, setHistory] = useState([]);
+
+    useEffect(() => {
+        getHistory().then(setHistory);
+    }, []);
 
     const handleToggleShow = () => {
         setShowAll(!showAll);

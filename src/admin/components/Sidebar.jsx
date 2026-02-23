@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { FiUser, FiFileText, FiBriefcase, FiFolder, FiDownload, FiLogOut } from 'react-icons/fi'
+import { FiUser, FiFileText, FiBriefcase, FiFolder, FiEdit, FiDownload, FiLogOut } from 'react-icons/fi'
 import { logout } from './AuthGate'
 import styles from './Sidebar.module.css'
 
@@ -9,6 +9,7 @@ const links = [
   { to: '/admin/resume', label: 'Resume', icon: FiFileText },
   { to: '/admin/experience', label: 'Experience', icon: FiBriefcase },
   { to: '/admin/projects', label: 'Projects', icon: FiFolder },
+  { to: '/admin/blogs', label: 'Blogs', icon: FiEdit },
   { to: '/admin/export', label: 'Export', icon: FiDownload },
 ]
 

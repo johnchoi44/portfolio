@@ -35,7 +35,10 @@ const Hero = ({ onToggleAbout, onOpenProject }) => {
   };
   const [orbitSettings, setOrbitSettings] = useState(defaultSettings);
 
-  const projects = getProjects();
+  const [projects, setProjects] = useState([]);
+  useEffect(() => {
+    getProjects().then(setProjects);
+  }, []);
   const resumeGeneratorProject = projects.find(p => p.title === 'Resume Generator');
 
   // Load keywords data and group by orbit
@@ -305,6 +308,7 @@ const Hero = ({ onToggleAbout, onOpenProject }) => {
           <a onClick={(e) => { e.preventDefault(); onToggleAbout(); document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }); }} className={styles.navButton} style={{ cursor: 'pointer' }}>About Me</a>
           <a onClick={() => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' })} className={styles.navButton} style={{ cursor: 'pointer' }}>Experience</a>
           <a onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })} className={styles.navButton} style={{ cursor: 'pointer' }}>Project</a>
+          <a href="#/blogs" className={styles.navButton}>Blog</a>
         </div>
       </div>
 
