@@ -24,3 +24,6 @@ supabase-setup.sql
 *.njsproj
 *.sln
 *.sw?
+
+# CLAUDE
+CLAUDE.md
