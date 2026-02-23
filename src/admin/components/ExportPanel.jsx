@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { exportHistory, exportProjects, getAboutText, downloadResume } from '../lib/exportUtils'
+import { exportHistory, exportProjects, exportBlogs, exportHeroSettings, getAboutText, downloadResume } from '../lib/exportUtils'
 import styles from './ExportPanel.module.css'
 
 const ExportPanel = () => {
@@ -56,6 +56,22 @@ const ExportPanel = () => {
           disabled={!!loading}
         >
           {loading === 'projects.json' ? 'Exporting...' : 'Download projects.json'}
+        </button>
+
+        <button
+          className={styles.exportBtn}
+          onClick={() => handleExport(exportBlogs, 'blogs.json')}
+          disabled={!!loading}
+        >
+          {loading === 'blogs.json' ? 'Exporting...' : 'Download blogs.json'}
+        </button>
+
+        <button
+          className={styles.exportBtn}
+          onClick={() => handleExport(exportHeroSettings, 'heroSettings.json')}
+          disabled={!!loading}
+        >
+          {loading === 'heroSettings.json' ? 'Exporting...' : 'Download heroSettings.json'}
         </button>
 
         <button

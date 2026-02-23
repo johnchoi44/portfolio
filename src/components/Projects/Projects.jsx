@@ -9,8 +9,11 @@ const Projects = ({ selectedProject, setSelectedProject }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [hoverProject, setHoverProject] = useState(null);
     const [cursorPosition, setCursorPosition] = useState({x: 0, y: 0});
+    const [projects, setProjects] = useState([]);
 
-    const projects = getProjects();
+    useEffect(() => {
+        getProjects().then(setProjects);
+    }, []);
 
     const nextSlide = () => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % projects.length);
@@ -41,6 +44,14 @@ const Projects = ({ selectedProject, setSelectedProject }) => {
             return () => clearTimeout(timer);
         }
     }, [hoverProject]);
+
+    if (projects.length === 0) {
+        return (
+            <section className={styles.container} id="projects">
+                <h2 className={styles.title}>Project</h2>
+            </section>
+        );
+    }
 
     return (
         <section className={styles.container} id="projects">

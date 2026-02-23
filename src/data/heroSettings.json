@@ -1,0 +1,6 @@
+{
+  "orbit1": { "speed": 20, "yPosition": 20, "radius": 239, "imageSize": 80, "reverse": false, "tilt": 9 },
+  "orbit2": { "speed": 45, "yPosition": 50, "radius": 240, "imageSize": 90, "reverse": false, "tilt": 9 },
+  "orbit3": { "speed": 55, "yPosition": 80, "radius": 300, "imageSize": 80, "reverse": false, "tilt": 9 },
+  "global": { "perspective": 1000, "corona": true }
+}

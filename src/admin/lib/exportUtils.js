@@ -71,6 +71,39 @@ export const getAboutText = async () => {
   return data.content
 }
 
+export const exportBlogs = async () => {
+  const { data, error } = await supabase
+    .from('blogs')
+    .select('*')
+    .eq('published', true)
+    .order('sort_order', { ascending: true })
+
+  if (error) throw new Error(error.message)
+
+  const blogs = data.map(item => ({
+    title: item.title,
+    slug: item.slug,
+    date: item.date,
+    excerpt: item.excerpt,
+    content: item.content,
+    imageSrc: item.image_src,
+  }))
+
+  download(JSON.stringify(blogs, null, 2), 'blogs.json')
+}
+
+export const exportHeroSettings = async () => {
+  const { data, error } = await supabase
+    .from('hero_settings')
+    .select('settings')
+    .limit(1)
+    .single()
+
+  if (error) throw new Error(error.message)
+
+  download(JSON.stringify(data.settings, null, 2), 'heroSettings.json')
+}
+
 export const downloadResume = async () => {
   const { data } = supabase.storage.from(BUCKET).getPublicUrl(RESUME_PATH)
   window.open(data.publicUrl, '_blank')
