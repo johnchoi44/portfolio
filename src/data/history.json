@@ -1,94 +1,134 @@
 [
   {
-      "role": "AI Engineer I",
-      "organisation": "Singlecase.AI",
-      "startDate": "Dec 2025",
-      "endDate": "Present",
-      "experiences": ["BAML", "LoRA", "LLM/SLM", "GEPA", "Prompt/Context Engineering", "MCP", "MongoDB", "TypeScript", "Fine Tuning"],
-      "imageSrc": "singlecase"
-    },
+    "role": "AI Engineer I",
+    "organisation": "Singlecase Case Informatics",
+    "startDate": "Dec 2025",
+    "endDate": "Present",
+    "experiences": [
+      "BAML",
+      "LoRA",
+      "LLM/SLM",
+      "GEPA",
+      "Prompt/Context Engineering",
+      "MCP",
+      "MongoDB",
+      "TypeScript",
+      "Fine Tuning"
+    ],
+    "imageSrc": "singlecase"
+  },
   {
-      "role": "AI Engineer Intern",
-      "organisation": "Singlecase.AI",
-      "startDate": "July 2025",
-      "endDate": "Dec 2025",
-      "experiences": ["BAML", "RAG", "Prompt/Context Engineering", "LLM", "MCP", "Supabase", "TypeScript", "AI Agents"],
-      "imageSrc": "singlecase"
-    },
-    {
-      "role": "Machine Learning Engineer",
-      "organisation": "Nittany Ai Advance",
-      "startDate": "Aug 2024",
-      "endDate": "Dec 2024",
-      "experiences": ["Computer Vision", "EfficientNetB3", "TensorFlow", "PyTorch", "KMeans", "PCA", "CNN", "Amazon EC2"],
-      "imageSrc": "nittanyai"
-    },
-    {
-      "role": "Undergraduate Research Assistant",
-      "organisation": "Penn State Listening Lab",
-      "startDate": "Jan 2024",
-      "endDate": "Aug 2024",
-      "experiences": ["Data Collection", "Machine Learning"],
-      "imageSrc": "pennstate"
-    },
-    {
-      "role": "Technology Tutor",
-      "organisation": "Penn State IT Learning & Development",
-      "startDate": "Aug 2023",
-      "endDate": "May 2025",
-      "experiences": [
-        "Technical Support", "Interpersonal Skills"
-      ],
-      "imageSrc": "pennstate"
-    },
-    {
-      "role": "Data Science Intern",
-      "organisation": "Advanced Nano Products Co., Ltd (ANP)",
-      "startDate": "May 2023",
-      "endDate": "Aug 2023",
-      "experiences": [
-        "Data Management", "ESG"
-      ],
-      "imageSrc": "anp"
-    },
-    {
-      "role": "Development Team Intern",
-      "organisation": "Truwin Co Ltd",
-      "startDate": "Aug 2022",
-      "endDate": "May 2022",
-      "experiences": [
-        "Research", "Vehicle Motor", "Vehicle Battery"
-      ],
-      "imageSrc": "truwin"
-    },
-    {
-      "role": "AI Engineering Intern",
-      "organisation": "Cybermed Inc.",
-      "startDate": "Feb 2022",
-      "endDate": "May 2022",
-      "experiences": [
-        "Chatbot Development", "Sales Automation"
-      ],
-      "imageSrc": "cybermed"
-    },
-    {
-      "role": "Military Police Sergeant and Squad Leader",
-      "organisation": "Republic of Korea Air Force - 17th Fighter Wing",
-      "startDate": "May 2020",
-      "endDate": "Feb 2022",
-      "experiences": [
-        "Leadership", "Team Management", "Interpersonal Skills"
-      ],
-      "imageSrc": "rokaf"
-    },
-    {
-      "role": "Intelligent Infra, Technology Research Center Intern",
-      "organisation": "Korea Institute of Science and Technology Information (KISTI)",
-      "startDate": "Sep 2019",
-      "endDate": "Dec 2019",
-      "experiences": [
-        "PyTorch", "Caffe", "Lightweight Deep Learning Model"
-      ],
-      "imageSrc": "kisti"
-    }
-  ]
+    "role": "AI Engineer Intern",
+    "organisation": "Single Case Informatics",
+    "startDate": "July 2025",
+    "endDate": "Dec 2025",
+    "experiences": [
+      "BAML",
+      "RAG",
+      "Prompt/Context Engineering",
+      "LLM",
+      "MCP",
+      "Supabase",
+      "TypeScript",
+      "AI Agents"
+    ],
+    "imageSrc": "singlecase"
+  },
+  {
+    "role": "Machine Learning Engineer",
+    "organisation": "Nittany Ai Advance",
+    "startDate": "Aug 2024",
+    "endDate": "Dec 2024",
+    "experiences": [
+      "Computer Vision",
+      "EfficientNetB3",
+      "TensorFlow",
+      "PyTorch",
+      "KMeans",
+      "PCA",
+      "CNN",
+      "Amazon EC2"
+    ],
+    "imageSrc": "nittanyai"
+  },
+  {
+    "role": "Undergraduate Research Assistant",
+    "organisation": "Penn State Listening Lab",
+    "startDate": "Jan 2024",
+    "endDate": "Aug 2024",
+    "experiences": [
+      "Data Collection",
+      "Machine Learning"
+    ],
+    "imageSrc": "pennstate"
+  },
+  {
+    "role": "Technology Tutor",
+    "organisation": "Penn State IT Learning & Development",
+    "startDate": "Aug 2023",
+    "endDate": "May 2025",
+    "experiences": [
+      "Technical Support",
+      "Interpersonal Skills"
+    ],
+    "imageSrc": "pennstate"
+  },
+  {
+    "role": "Data Science Intern",
+    "organisation": "Advanced Nano Products Co., Ltd (ANP)",
+    "startDate": "May 2023",
+    "endDate": "Aug 2023",
+    "experiences": [
+      "Data Management",
+      "ESG"
+    ],
+    "imageSrc": "anp"
+  },
+  {
+    "role": "Development Team Intern",
+    "organisation": "Truwin Co Ltd",
+    "startDate": "Aug 2022",
+    "endDate": "May 2022",
+    "experiences": [
+      "Research",
+      "Vehicle Motor",
+      "Vehicle Battery"
+    ],
+    "imageSrc": "truwin"
+  },
+  {
+    "role": "AI Engineering Intern",
+    "organisation": "Cybermed Inc.",
+    "startDate": "Feb 2022",
+    "endDate": "May 2022",
+    "experiences": [
+      "Chatbot Development",
+      "Sales Automation"
+    ],
+    "imageSrc": "cybermed"
+  },
+  {
+    "role": "Military Police Sergeant and Squad Leader",
+    "organisation": "Republic of Korea Air Force - 17th Fighter Wing",
+    "startDate": "May 2020",
+    "endDate": "Feb 2022",
+    "experiences": [
+      "Leadership",
+      "Team Management",
+      "Interpersonal Skills"
+    ],
+    "imageSrc": "rokaf"
+  },
+  {
+    "role": "Intelligent Infra, Technology Research Center Intern",
+    "organisation": "Korea Institute of Science and Technology Information (KISTI)",
+    "startDate": "Sep 2019",
+    "endDate": "Dec 2019",
+    "experiences": [
+      "PyTorch",
+      "Caffe",
+      "Lightweight Deep Learning Model"
+    ],
+    "imageSrc": "kisti"
+  }
+]
