@@ -41,7 +41,7 @@ const BlogForm = ({ item, nextSortOrder, onSaved, onCancel }) => {
     setSaving(true)
     setMessage(null)
 
-    const payload = { ...form }
+    const payload = { ...form, date: form.date || null }
 
     if (item) {
       const { error } = await supabase
@@ -96,10 +96,9 @@ const BlogForm = ({ item, nextSortOrder, onSaved, onCancel }) => {
           <label className={styles.field}>
             <span>Date</span>
             <input
-              type="text"
-              value={form.date}
+              type="date"
+              value={form.date || ''}
               onChange={(e) => updateField('date', e.target.value)}
-              placeholder="e.g., Feb 2026"
               required
             />
           </label>

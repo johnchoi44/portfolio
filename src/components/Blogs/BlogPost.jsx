@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { getBlogs } from '../../utils'
+import { getBlogs, formatBlogDate } from '../../utils'
 import styles from './BlogPost.module.css'
 
 const BlogPost = () => {
@@ -34,7 +34,7 @@ const BlogPost = () => {
       <Link to="/blogs" className={styles.backLink}>&larr; Back to Blog</Link>
       <article className={styles.article}>
         <header className={styles.header}>
-          <span className={styles.date}>{blog.date}</span>
+          <span className={styles.date}>{formatBlogDate(blog.date)}</span>
           <h1 className={styles.title}>{blog.title}</h1>
         </header>
         {blog.imageSrc && (

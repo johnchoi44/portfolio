@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { supabase } from '../../admin/lib/supabaseClient'
 import EditorPanel from './EditorPanel'
+import { formatBlogDate } from '../../utils/formatDate'
 import styles from './AdminBlogEditor.module.css'
 
 const AdminBlogEditor = () => {
@@ -58,7 +59,7 @@ const AdminBlogEditor = () => {
     if (!form || !blog) return
     setSaving(true)
 
-    const payload = { ...form }
+    const payload = { ...form, date: form.date || null }
     const { error } = await supabase
       .from('blogs')
       .update(payload)
@@ -184,7 +185,7 @@ const AdminBlogEditor = () => {
         <div className={`${styles.preview} ${panelOpen ? styles.previewWithPanel : ''}`}>
           <article className={styles.article}>
             <header className={styles.articleHeader}>
-              <span className={styles.date}>{form.date || 'No date'}</span>
+              <span className={styles.date}>{formatBlogDate(form.date) || 'No date'}</span>
               <h1 className={styles.title}>{form.title || 'Untitled'}</h1>
             </header>
             {form.image_src && (

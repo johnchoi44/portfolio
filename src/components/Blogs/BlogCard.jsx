@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { formatBlogDate } from '../../utils/formatDate'
 import styles from './BlogCard.module.css'
 
 const BlogCard = ({ blog }) => {
@@ -11,7 +12,7 @@ const BlogCard = ({ blog }) => {
         </div>
       )}
       <div className={styles.body}>
-        <span className={styles.date}>{blog.date}</span>
+        <span className={styles.date}>{formatBlogDate(blog.date)}</span>
         <h3 className={styles.title}>{blog.title}</h3>
         <p className={styles.excerpt}>{blog.excerpt}</p>
       </div>

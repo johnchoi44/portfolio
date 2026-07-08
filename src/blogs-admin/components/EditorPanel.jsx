@@ -51,11 +51,10 @@ const EditorPanel = ({ form, onChange, onClose }) => {
           <label className={styles.field}>
             <span className={styles.label}>Date</span>
             <input
-              type="text"
+              type="date"
               className={styles.input}
-              value={form.date}
+              value={form.date || ''}
               onChange={(e) => updateField('date', e.target.value)}
-              placeholder="e.g., Feb 2026"
             />
           </label>
 

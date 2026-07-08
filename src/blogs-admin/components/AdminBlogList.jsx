@@ -35,7 +35,7 @@ const AdminBlogList = () => {
       .insert({
         title: '',
         slug,
-        date: '',
+        date: null,
         excerpt: '',
         content: '',
         image_src: '',
