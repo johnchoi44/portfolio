@@ -48,4 +48,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          npx gh-pages -d dist -u "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          # No -u flag: gh-pages parses it with a strict RFC 5322 parser that
+          # rejects the "[bot]" brackets. Omitting it makes gh-pages commit with
+          # the git identity configured above, which keeps bot attribution.
+          npx gh-pages -d dist
