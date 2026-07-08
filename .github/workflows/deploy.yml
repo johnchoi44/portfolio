@@ -1,0 +1,51 @@
+name: Deploy to GitHub Pages
+
+# Build and publish the site on every push to main, so committed changes
+# (including admin panel writes to src/data/) go live automatically.
+# Publishes to the gh-pages branch via the same gh-pages CLI used locally,
+# so this coexists with `npm run deploy` and the admin "Save & Deploy" button.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {} # allow manual "Run workflow" from the Actions tab
+
+# Needed so the built-in GITHUB_TOKEN can push to the gh-pages branch.
+permissions:
+  contents: write
+
+# Avoid overlapping deploys stepping on each other.
+concurrency:
+  group: deploy-pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        # persist-credentials defaults to true, so gh-pages can push using GITHUB_TOKEN.
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_ADMIN_PASSWORD: ${{ secrets.VITE_ADMIN_PASSWORD }}
+          VITE_RESUME_API_URL: ${{ secrets.VITE_RESUME_API_URL }}
+          VITE_RESUME_API_KEY: ${{ secrets.VITE_RESUME_API_KEY }}
+        run: npm run build
+
+      - name: Publish to gh-pages branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          npx gh-pages -d dist -u "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
