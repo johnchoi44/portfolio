@@ -15,7 +15,7 @@ const download = (content, filename, type = 'application/json') => {
   URL.revokeObjectURL(url)
 }
 
-export const exportHistory = async () => {
+export const getHistoryData = async () => {
   const { data, error } = await supabase
     .from('experience')
     .select('*')
@@ -23,7 +23,7 @@ export const exportHistory = async () => {
 
   if (error) throw new Error(error.message)
 
-  const history = data.map(item => ({
+  return data.map(item => ({
     role: item.role,
     organisation: item.organisation,
     startDate: item.start_date,
@@ -31,11 +31,14 @@ export const exportHistory = async () => {
     experiences: item.experiences,
     imageSrc: item.image_src,
   }))
+}
 
+export const exportHistory = async () => {
+  const history = await getHistoryData()
   download(JSON.stringify(history, null, 2), 'history.json')
 }
 
-export const exportProjects = async () => {
+export const getProjectsData = async () => {
   const { data, error } = await supabase
     .from('projects')
     .select('*')
@@ -43,7 +46,7 @@ export const exportProjects = async () => {
 
   if (error) throw new Error(error.message)
 
-  const projects = data.map(item => {
+  return data.map(item => {
     const proj = {
       title: item.title,
       imageSrc: item.image_src,
@@ -56,7 +59,10 @@ export const exportProjects = async () => {
     proj.screenshots = item.screenshots
     return proj
   })
+}
 
+export const exportProjects = async () => {
+  const projects = await getProjectsData()
   download(JSON.stringify(projects, null, 2), 'projects.json')
 }
 
@@ -71,7 +77,7 @@ export const getAboutText = async () => {
   return data.content
 }
 
-export const exportBlogs = async () => {
+export const getBlogsData = async () => {
   const { data, error } = await supabase
     .from('blogs')
     .select('*')
@@ -80,7 +86,7 @@ export const exportBlogs = async () => {
 
   if (error) throw new Error(error.message)
 
-  const blogs = data.map(item => ({
+  return data.map(item => ({
     title: item.title,
     slug: item.slug,
     date: item.date,
@@ -88,11 +94,14 @@ export const exportBlogs = async () => {
     content: item.content,
     imageSrc: item.image_src,
   }))
+}
 
+export const exportBlogs = async () => {
+  const blogs = await getBlogsData()
   download(JSON.stringify(blogs, null, 2), 'blogs.json')
 }
 
-export const exportHeroSettings = async () => {
+export const getHeroSettingsData = async () => {
   const { data, error } = await supabase
     .from('hero_settings')
     .select('settings')
@@ -101,7 +110,12 @@ export const exportHeroSettings = async () => {
 
   if (error) throw new Error(error.message)
 
-  download(JSON.stringify(data.settings, null, 2), 'heroSettings.json')
+  return data.settings
+}
+
+export const exportHeroSettings = async () => {
+  const settings = await getHeroSettingsData()
+  download(JSON.stringify(settings, null, 2), 'heroSettings.json')
 }
 
 export const downloadResume = async () => {

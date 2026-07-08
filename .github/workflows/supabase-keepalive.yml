@@ -1,0 +1,40 @@
+name: Supabase Keep-Alive
+
+# Free-tier Supabase projects pause after ~7 days without activity.
+# This makes a tiny read request on a schedule so the project stays awake.
+on:
+  schedule:
+    # Every 3 days at 08:00 UTC — well inside the ~7-day pause window, so a
+    # single missed/late run (GitHub throttles cron on busy runners) is safe.
+    - cron: '0 8 */3 * *'
+  workflow_dispatch: {} # allow manual "Run workflow" from the Actions tab
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase REST API
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_ANON_KEY" ]; then
+            echo "::error::SUPABASE_URL and/or SUPABASE_ANON_KEY secrets are not set."
+            exit 1
+          fi
+
+          # Read one row from a public table (anon key can read it, same as the site).
+          status=$(curl -s -o /tmp/body.txt -w "%{http_code}" \
+            "$SUPABASE_URL/rest/v1/blogs?select=id&limit=1" \
+            -H "apikey: $SUPABASE_ANON_KEY" \
+            -H "Authorization: Bearer $SUPABASE_ANON_KEY")
+
+          echo "HTTP $status"
+          cat /tmp/body.txt
+
+          if [ "$status" -ge 200 ] && [ "$status" -lt 300 ]; then
+            echo "Supabase is awake ✅"
+          else
+            echo "::error::Unexpected status $status — check secrets or that the project is restored."
+            exit 1
+          fi
