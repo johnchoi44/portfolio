@@ -1,0 +1,1 @@
+const a=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],m=t=>{if(!t)return"";const r=/^(\d{4})-(\d{2})-(\d{2})$/.exec(t);if(!r)return t;const[,e,o,c]=r,n=a[Number(o)-1];return n?`${n} ${Number(c)}, ${e}`:t};export{m as f};
