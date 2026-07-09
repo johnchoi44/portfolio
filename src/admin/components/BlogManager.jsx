@@ -105,7 +105,10 @@ const BlogManager = () => {
                   {item.published ? 'Published' : 'Draft'}
                 </span>
               </div>
-              <span className={styles.date}>{item.date}</span>
+              <span className={styles.date}>
+                {item.date}
+                <span className={styles.views} title="Views">👁 {item.view_count ?? 0}</span>
+              </span>
             </div>
             <div className={styles.actions}>
               <button className={styles.editBtn} onClick={() => setEditing(item.id)}>Edit</button>

@@ -3,7 +3,20 @@ import { useParams, Link } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { getBlogs, formatBlogDate } from '../../utils'
+import { supabase } from '../../admin/lib/supabaseClient'
 import styles from './BlogPost.module.css'
+
+const recordView = (slug) => {
+  const key = `blog_viewed_${slug}`
+  if (sessionStorage.getItem(key)) return
+  sessionStorage.setItem(key, 'true')
+  supabase
+    .rpc('increment_blog_view', { blog_slug: slug })
+    .then(({ error }) => {
+      // Fire-and-forget: a failed count must never affect rendering.
+      if (error) sessionStorage.removeItem(key)
+    })
+}
 
 const BlogPost = () => {
   const { slug } = useParams()
@@ -12,8 +25,10 @@ const BlogPost = () => {
 
   useEffect(() => {
     getBlogs().then((blogs) => {
-      setBlog(blogs.find((b) => b.slug === slug))
+      const found = blogs.find((b) => b.slug === slug)
+      setBlog(found)
       setLoading(false)
+      if (found) recordView(slug)
     })
   }, [slug])
 

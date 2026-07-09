@@ -37,6 +37,7 @@ const AdminBlogCard = ({ blog, index, total, onReorder, onTogglePublish, onDelet
             <span className={blog.published ? styles.badgePublished : styles.badgeDraft}>
               {blog.published ? 'Published' : 'Draft'}
             </span>
+            <span className={styles.views} title="Views">👁 {blog.view_count ?? 0}</span>
           </div>
           <h3 className={styles.title}>{blog.title || 'Untitled'}</h3>
           {blog.excerpt && <p className={styles.excerpt}>{blog.excerpt}</p>}
