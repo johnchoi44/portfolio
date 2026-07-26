@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useLayoutEffect } from 'react'
 import ImageUploader from '../../admin/components/ImageUploader'
 import styles from './EditorPanel.module.css'
 
@@ -9,12 +9,52 @@ const slugify = (text) =>
     .replace(/(^-|-$)/g, '')
 
 const EditorPanel = ({ form, onChange, onClose }) => {
+  const contentRef = useRef(null)
+  // Selection to restore after a programmatic content update (controlled textarea).
+  const pendingSelection = useRef(null)
+
+  useLayoutEffect(() => {
+    if (pendingSelection.current && contentRef.current) {
+      const { start, end } = pendingSelection.current
+      contentRef.current.focus()
+      contentRef.current.setSelectionRange(start, end)
+      pendingSelection.current = null
+    }
+  })
+
   const updateField = (key, value) => {
     const next = { ...form, [key]: value }
     if (key === 'title' && (form.slug === '' || form.slug === slugify(form.title))) {
       next.slug = slugify(value)
     }
     onChange(next)
+  }
+
+  // Insert a markdown link at the cursor, using any selected text as the label.
+  const insertLink = () => {
+    const textarea = contentRef.current
+    const value = form.content || ''
+    const start = textarea ? textarea.selectionStart : value.length
+    const end = textarea ? textarea.selectionEnd : value.length
+    const selected = value.slice(start, end)
+
+    const label = selected || 'link text'
+    const url = 'https://'
+    const snippet = `[${label}](${url})`
+    const nextContent = value.slice(0, start) + snippet + value.slice(end)
+
+    // Select the "https://" portion so the user can immediately type the URL.
+    const urlStart = start + 1 + label.length + 2
+    pendingSelection.current = { start: urlStart, end: urlStart + url.length }
+
+    updateField('content', nextContent)
+  }
+
+  const handleContentKeyDown = (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault()
+      insertLink()
+    }
   }
 
   return (
@@ -82,11 +122,25 @@ const EditorPanel = ({ form, onChange, onClose }) => {
         </label>
 
         <label className={styles.field + ' ' + styles.contentField}>
-          <span className={styles.label}>Content (Markdown)</span>
+          <div className={styles.contentLabelRow}>
+            <span className={styles.label}>Content (Markdown)</span>
+            <div className={styles.toolbar}>
+              <button
+                type="button"
+                className={styles.toolbarBtn}
+                onClick={insertLink}
+                title="Insert link (⌘K / Ctrl+K)"
+              >
+                🔗 Link
+              </button>
+            </div>
+          </div>
           <textarea
+            ref={contentRef}
             className={styles.contentEditor}
             value={form.content}
             onChange={(e) => updateField('content', e.target.value)}
+            onKeyDown={handleContentKeyDown}
             placeholder="Write your blog post in markdown..."
           />
         </label>
