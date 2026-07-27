@@ -1,40 +1,48 @@
 name: Supabase Keep-Alive
 
 # Free-tier Supabase projects pause after ~7 days without activity.
-# This makes a tiny read request on a schedule so the project stays awake.
+# IMPORTANT: read-only requests (SELECT) do NOT reset that inactivity timer —
+# a project pinged every 3 days with reads still paused. So this makes a real
+# WRITE (an upsert into a tiny `keepalive` table) on a daily schedule.
 on:
   schedule:
-    # Every 3 days at 08:00 UTC — well inside the ~7-day pause window, so a
-    # single missed/late run (GitHub throttles cron on busy runners) is safe.
-    - cron: '0 8 */3 * *'
+    # Daily at 04:17 UTC. Daily + off-the-top-of-the-hour means several
+    # consecutive missed runs still can't reach the ~7-day pause window.
+    - cron: '17 4 * * *'
   workflow_dispatch: {} # allow manual "Run workflow" from the Actions tab
 
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Supabase REST API
+      - name: Write keep-alive row to Supabase
         env:
           SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-          SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
-          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_ANON_KEY" ]; then
-            echo "::error::VITE_SUPABASE_URL and/or VITE_SUPABASE_ANON_KEY secrets are not set."
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SERVICE_KEY" ]; then
+            echo "::error::VITE_SUPABASE_URL and/or SUPABASE_SERVICE_ROLE_KEY secrets are not set."
             exit 1
           fi
 
-          # Read one row from a public table (anon key can read it, same as the site).
+          now=$(date -u +%FT%TZ)
+
+          # Upsert a single row (id=1) using the service_role key, which bypasses
+          # RLS. This is a real write, so it registers as activity.
           status=$(curl -s -o /tmp/body.txt -w "%{http_code}" \
-            "$SUPABASE_URL/rest/v1/blogs?select=id&limit=1" \
-            -H "apikey: $SUPABASE_ANON_KEY" \
-            -H "Authorization: Bearer $SUPABASE_ANON_KEY")
+            -X POST "$SUPABASE_URL/rest/v1/keepalive?on_conflict=id" \
+            -H "apikey: $SERVICE_KEY" \
+            -H "Authorization: Bearer $SERVICE_KEY" \
+            -H "Content-Type: application/json" \
+            -H "Prefer: resolution=merge-duplicates,return=representation" \
+            -d "[{\"id\":1,\"pinged_at\":\"$now\"}]")
 
           echo "HTTP $status"
           cat /tmp/body.txt
 
           if [ "$status" -ge 200 ] && [ "$status" -lt 300 ]; then
-            echo "Supabase is awake ✅"
+            echo "Supabase write ping OK ✅ ($now)"
           else
-            echo "::error::Unexpected status $status — check secrets or that the project is restored."
+            echo "::error::Unexpected status $status — check the service key or that the project is restored."
             exit 1
           fi
