@@ -1,10 +1,8 @@
 @import "../../vars.css";
 
 .container {
-    margin-top: 76px;
+    margin: 76px 10% 0;
     color: var(--color-text);
-    margin-left: 10%;
-    margin-right: 10%;
     position: relative;
 }
 
@@ -16,122 +14,39 @@
 }
 
 .carousel {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* overflow: hidden; */
-    width: 81%;
+    --card-step: clamp(180px, 30vw, 410px);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
     margin-top: 20px;
-    margin-left: 10%;
-    margin-right: 10%;
+    padding: 24px 0 32px;
 }
 
-.projectContainer {
-    flex: 0 0 22%;
-    transform: scale(0.95);
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    /* animation: slideIn 0.5s forwards; */
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+.projectSlot {
+    grid-area: 1 / 1;
+    width: min(350px, 65vw);
+    transform: translateX(calc(var(--offset) * var(--card-step))) scale(var(--scale));
+    transition: transform var(--slide-duration) cubic-bezier(0.22, 1, 0.36, 1),
+        opacity var(--slide-duration) ease;
+}
+
+.projectSlot[aria-hidden="true"] { pointer-events: none; }
+
+.cardInteraction {
     cursor: pointer;
+    border-radius: 10px;
+    transition: transform 200ms ease;
 }
 
+.cardInteraction > div { width: 100%; }
+.center .cardInteraction:hover { transform: translateY(-5px); }
 
-.projectContainer:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    z-index: 15;
-}
-
-.projectContainer1,
-.projectContainer2 {
-    flex: 0 0 22%;
-    /* transition: transform 0.5s ease-in-out, opacity 0.5 ease-in-out, box-shadow 0.5s ease-in-out; */
-    position: relative;
-    transform-origin: center;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    opacity: 0.5;
-    z-index: 5;
-}
-
-.projectContainer1 {
-    transform: translateX(-25%) scale(0.8);
-    mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(121, 60, 60, 0.3) 50%, rgba(0, 0, 0, 0) 100%);
-    -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0) 100%);
-    /* animation: slideOut 0.5s backwards */
-}
-
-.projectContainer2 {
-    transform: translateX(25%) scale(0.8);
-    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0) 100%);
-    -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0) 100%);
-}
-
-.progressCircle {
-    position: fixed;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 4px solid transparent;
-    border-top-color: var(--color-primary);
-    animation: fillCircle 2.5s linear forwards;
-    pointer-events: none;
-    z-index: 100;
-}
-
-@keyframes fillCircle {
-    from {
-        transform: rotate(0deg);
-    } to {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateX(125%) scale(0.8);
-        opacity: 0.5;
-        mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0) 100%);
-        -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0) 100%);
-    }
-    to {
-        transform: translateX(0) scale(0.95);
-        opacity: 1;
-    }
-}
-
-@keyframes slideOut {
-    from {
-        transform: translateX(100%) scale(0.95);
-        opacity: 1;
-        mask-image: none;
-    }
-    to {
-        transform: translateX(-25%) scale(0.8);
-        opacity: 0.5;
-        mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(121, 60, 60, 0.3) 50%, rgba(0, 0, 0, 0) 100%);
-        -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0) 100%);
-    }
-}
-
-.projectContainer1:hover {
-    transform: translateX(-20%) scale(0.85);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    opacity: 0.7;
-    z-index: 15;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-
-.projectContainer2:hover {
-    transform: translateX(20%) scale(0.85);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    opacity: 0.7;
-    z-index: 15;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+.cardInteraction:focus-visible,
+.arrowLeft:focus-visible,
+.arrowRight:focus-visible,
+.indicator:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 5px;
 }
 
 .arrowLeft,
@@ -141,21 +56,25 @@
     transform: translateY(-50%);
     background: var(--color-dark);
     color: var(--color-text);
+    border: 0;
+    padding: 0;
     border-radius: 50%;
     width: 40px;
     height: 40px;
     cursor: pointer;
     z-index: 20;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: background-color 200ms ease, transform 200ms ease;
 }
 
-.arrowLeft {
-    left: 10px;
+.arrowLeft svg,
+.arrowRight svg {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
-.arrowRight {
-    right: 10px;
-}
+.arrowLeft { left: 10px; }
+.arrowRight { right: 10px; }
 
 .arrowLeft:hover,
 .arrowRight:hover {
@@ -163,119 +82,38 @@
     transform: translateY(-50%) scale(1.1);
 }
 
+.arrowLeft:disabled,
+.arrowRight:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
 .indicators {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    margin-top: 20px;
+    gap: 10px;
+    padding-bottom: 20px;
 }
 
 .indicator {
     width: 10px;
     height: 10px;
-    margin: 0 5px;
+    padding: 0;
     border-radius: 50%;
     background-color: var(--color-border);
     border: none;
     cursor: pointer;
-    margin-bottom: 20px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: background-color 200ms ease, transform 200ms ease;
 }
 
-.indicator:hover {
-    transform: scale(1.2);
+.indicator:hover { transform: scale(1.2); }
+.indicator.active { background-color: var(--color-primary); }
+
+@media (prefers-reduced-motion: reduce) {
+    .projectSlot,
+    .cardInteraction,
+    .arrowLeft,
+    .arrowRight,
+    .indicator { transition: none; }
 }
-
-.indicator.active {
-    background-color: var(--color-primary);
-}
-
-/* This is 3d */
-
-/* .banner {
-    width: 100%;
-    height: 100vh;
-    text-align: center;
-    overflow: hidden;
-    position: relative;
-}
-
-.slider {
-    position: absolute;
-    width: 200px;
-    height: 250px;
-    top: 10%;
-    left: calc(50% - 100px);
-    transform-style: preserve-3d;
-    transform: perspective(1000px);
-    animation: autoRun 20s linear infinite;
-    z-index: 2;
-}
-
-@keyframes autoRun {
-    from {
-        transform: perspective(1000px) rotateX(-16deg) rotateY(0deg);
-    }
-    to {
-        transform: perspective(1000px) rotateX(-16deg) rotateY(360deg);
-    }
-}
-
-.item {
-    position: absolute;
-    inset: 0 0 0 0;
-    transform: rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg))
-        translateZ(550px);
-}
-
-.item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.arrowLeft,
-.arrowRight {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    z-index: 20;
-}
-
-.arrowLeft {
-    left: 10px;
-}
-
-.arrowRight {
-    right: 10px;
-}
-
-.indicators {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.indicator {
-    width: 10px;
-    height: 10px;
-    margin: 0 5px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: none;
-    cursor: pointer;
-}
-
-.indicator.active {
-    background-color: rgba(255, 255, 255, 1);
-}
-
-.arrowLeft:hover,
-.arrowRight:hover {
-    cursor: pointer;
-} */

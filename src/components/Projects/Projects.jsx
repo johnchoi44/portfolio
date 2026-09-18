@@ -1,111 +1,112 @@
-import React, { useState, useEffect } from 'react';
-import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
-
-import styles from "./Projects.module.css";
+import { useState, useEffect } from 'react';
+import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from 'react-icons/bs';
+import styles from './Projects.module.css';
 import { getProjects } from '../../utils';
 import ProjectCard from './ProjectCard';
 
-const Projects = ({ selectedProject, setSelectedProject }) => {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [hoverProject, setHoverProject] = useState(null);
-    const [cursorPosition, setCursorPosition] = useState({x: 0, y: 0});
+const wrapIndex = (index, length) => ((index % length) + length) % length;
+const SLIDE_DURATION = 460;
+
+const Projects = ({ setSelectedProject }) => {
     const [projects, setProjects] = useState([]);
+    const [{ position, target }, setNavigation] = useState({ position: 0, target: 0 });
 
     useEffect(() => {
         getProjects().then(setProjects);
     }, []);
 
-    const nextSlide = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % projects.length);
-    };
-
-    const prevSlide = () => {
-        setCurrentIndex((prevIndex) => (prevIndex - 1 + projects.length) % projects.length);
-    };
-
-    const handleProjectClick = (project) => {
-        setSelectedProject(project);
-    };
-
-    const handleMouseEnter = (project, e) => {
-        setHoverProject(project);
-        setCursorPosition({ x: e.clientX, y: e.clientY });
-    };
-
-    const handleMouseLeave = () => {
-        setHoverProject(null);
-    }
-
+    // Travel through adjacent cards when a distant navigation dot is selected.
     useEffect(() => {
-        if (hoverProject) {
-            const timer = setTimeout(() => {
-                setSelectedProject(hoverProject);
-            }, 3000);
-            return () => clearTimeout(timer);
-        }
-    }, [hoverProject]);
+        if (position === target) return;
+        const timer = setTimeout(() => {
+            setNavigation((navigation) => ({
+                ...navigation,
+                position: navigation.position + Math.sign(navigation.target - navigation.position),
+            }));
+        }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : SLIDE_DURATION);
+        return () => clearTimeout(timer);
+    }, [position, target]);
 
-    if (projects.length === 0) {
-        return (
-            <section className={styles.container} id="projects">
-                <h2 className={styles.title}>Project</h2>
-            </section>
-        );
-    }
+    const navigate = (getTarget) => {
+        if (projects.length < 2) return;
+        setNavigation((navigation) => {
+            const nextTarget = getTarget(navigation);
+            return {
+                target: nextTarget,
+                position: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+                    ? nextTarget
+                    : navigation.position + Math.sign(nextTarget - navigation.position),
+            };
+        });
+    };
+
+    const nextSlide = () => navigate(({ target }) => target + 1);
+    const prevSlide = () => navigate(({ target }) => target - 1);
+    const goToSlide = (index) => navigate(({ position }) => {
+        const forward = wrapIndex(index - wrapIndex(position, projects.length), projects.length);
+        return position + (forward > projects.length / 2 ? forward - projects.length : forward);
+    });
+    const currentIndex = projects.length ? wrapIndex(position, projects.length) : 0;
 
     return (
         <section className={styles.container} id="projects">
             <h2 className={styles.title}>Project</h2>
-            <BsArrowLeftCircleFill onClick={prevSlide} className={styles.arrowLeft} />
-            <div className={styles.carousel}>
-                <div className={styles.projectContainer1} onClick={prevSlide}>
-                    <ProjectCard project={
-                        currentIndex === 0 
-                            ? projects[projects.length - 1] 
-                            : projects[currentIndex - 1]
-                        }
-                    />
+            {projects.length > 0 && <>
+                <button type="button" onClick={prevSlide} className={styles.arrowLeft}
+                    aria-label="Previous project" disabled={projects.length < 2}>
+                    <BsArrowLeftCircleFill aria-hidden="true" />
+                </button>
+                <div className={styles.carousel} role="region" aria-label="Projects carousel"
+                    style={{ '--slide-duration': `${SLIDE_DURATION}ms` }}>
+                    {(projects.length === 1 ? [0] : [-2, -1, 0, 1, 2]).map((offset) => {
+                        const cardPosition = position + offset;
+                        const project = projects[wrapIndex(cardPosition, projects.length)];
+                        const visible = Math.abs(offset) <= 1;
+                        const activate = () => offset === 0
+                            ? setSelectedProject(project)
+                            : offset < 0 ? prevSlide() : nextSlide();
+                        return (
+                            <div key={cardPosition}
+                                className={`${styles.projectSlot} ${offset === 0 ? styles.center : ''}`}
+                                style={{ '--offset': offset, '--scale': offset === 0 ? 0.95 : 0.8,
+                                    opacity: offset === 0 ? 1 : visible ? 0.45 : 0,
+                                    zIndex: offset === 0 ? 10 : visible ? 5 : 0 }}
+                                aria-hidden={!visible}>
+                                <div className={styles.cardInteraction} role="button"
+                                    tabIndex={visible ? 0 : -1}
+                                    aria-label={offset === 0 ? `Open ${project.title}` : `Show ${project.title}`}
+                                    onClick={visible ? activate : undefined}
+                                    onKeyDown={(event) => {
+                                        if (event.key === 'Enter' || event.key === ' ') {
+                                            event.preventDefault();
+                                            activate();
+                                        } else if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+                                            event.preventDefault();
+                                            if (event.key === 'ArrowRight') nextSlide();
+                                            else prevSlide();
+                                        }
+                                    }}>
+                                    <ProjectCard project={project} />
+                                </div>
+                            </div>
+                        );
+                    })}
                 </div>
-                <div className={styles.projectContainer}>
-                    <ProjectCard
-                        project={projects[currentIndex]}
-                        onClick={() => handleProjectClick(projects[currentIndex])}
-                    />
+                <button type="button" onClick={nextSlide} className={styles.arrowRight}
+                    aria-label="Next project" disabled={projects.length < 2}>
+                    <BsArrowRightCircleFill aria-hidden="true" />
+                </button>
+                <div className={styles.indicators}>
+                    {projects.map((project, index) => (
+                        <button type="button" key={index} onClick={() => goToSlide(index)}
+                            aria-label={`Show project ${index + 1}: ${project.title}`}
+                            aria-current={currentIndex === index ? 'true' : undefined}
+                            className={`${styles.indicator} ${currentIndex === index ? styles.active : ''}`} />
+                    ))}
                 </div>
-                <div className={styles.projectContainer2} onClick={nextSlide}>
-                    <ProjectCard
-                        project={
-                            currentIndex === projects.length - 1 
-                                ? projects[0] 
-                                : projects[currentIndex + 1]
-                        }/>
-                </div>
-            </div>
-            {/* {hoverProject && (
-                <div
-                    className={styles.progressCircle}
-                    style={{
-                        top: `${cursorPosition.y}px`,
-                        left: `${cursorPosition.x}px`,
-                    }}
-                ></div>
-            )} */}
-            <BsArrowRightCircleFill onClick={nextSlide} className={styles.arrowRight} />
-            <div className={styles.indicators}>
-                {projects.map((_, idx) => {
-                    return (
-                        <button
-                            key={idx}
-                            onClick={() => setCurrentIndex(idx)}
-                            className={`${styles.indicator} ${
-                                currentIndex === idx ? styles.active : ""
-                            }`}
-                        ></button>
-                    )
-                })}
-            </div>
+            </>}
         </section>
-    )
-}
+    );
+};
 
-export default Projects
+export default Projects;
