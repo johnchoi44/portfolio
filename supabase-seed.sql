@@ -7,8 +7,8 @@ Previously, as a Machine Learning Engineer at Nittany AI Advance, I worked with 
 
 -- Seed experience entries
 INSERT INTO experience (role, organisation, start_date, end_date, experiences, image_src, sort_order) VALUES
-('AI Engineer I', 'Singlecase.AI', 'Dec 2025', 'Present', ARRAY['BAML','LoRA','LLM/SLM','GEPA','Prompt/Context Engineering','MCP','MongoDB','TypeScript','Fine Tuning'], 'singlecase', 0),
-('AI Engineer Intern', 'Singlecase.AI', 'July 2025', 'Dec 2025', ARRAY['BAML','RAG','Prompt/Context Engineering','LLM','MCP','Supabase','TypeScript','AI Agents'], 'singlecase', 1),
+('AI Engineer I', 'Single Case Informatics', 'Dec 2025', 'Present', ARRAY['BAML','LoRA','LLM/SLM','GEPA','Prompt/Context Engineering','MCP','MongoDB','TypeScript','Fine Tuning'], 'singlecase', 0),
+('AI Engineer Intern', 'Single Case Informatics', 'July 2025', 'Dec 2025', ARRAY['BAML','RAG','Prompt/Context Engineering','LLM','MCP','Supabase','TypeScript','AI Agents'], 'singlecase', 1),
 ('Machine Learning Engineer', 'Nittany Ai Advance', 'Aug 2024', 'Dec 2024', ARRAY['Computer Vision','EfficientNetB3','TensorFlow','PyTorch','KMeans','PCA','CNN','Amazon EC2'], 'nittanyai', 2),
 ('Undergraduate Research Assistant', 'Penn State Listening Lab', 'Jan 2024', 'Aug 2024', ARRAY['Data Collection','Machine Learning'], 'pennstate', 3),
 ('Technology Tutor', 'Penn State IT Learning & Development', 'Aug 2023', 'May 2025', ARRAY['Technical Support','Interpersonal Skills'], 'pennstate', 4),

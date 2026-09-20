@@ -1,10 +1,15 @@
 // Eagerly import all images from asset folders using Vite's glob
 const historyImages = import.meta.glob('/src/assets/history/*.{png,jpg,jpeg,svg,webp}', { eager: true });
-const projectImages = import.meta.glob('/src/assets/projects/*.{png,jpg,jpeg,svg,webp}', { eager: true });
+// Original PNG/JPEG files are retained for editing, but only WebP ships for these folders.
+const projectImages = import.meta.glob('/src/assets/projects/*.{svg,webp}', { eager: true });
 const navImages = import.meta.glob('/src/assets/nav/*.{png,jpg,jpeg,svg,webp}', { eager: true });
-const heroImages = import.meta.glob('/src/assets/hero/*.{png,jpg,jpeg,svg,webp}', { eager: true });
+const heroImages = import.meta.glob('/src/assets/hero/*.{svg,webp}', { eager: true });
 const blogImages = import.meta.glob('/src/assets/blogs/*.{png,jpg,jpeg,svg,webp}', { eager: true });
-const allImages = import.meta.glob('/src/assets/**/*.{png,jpg,jpeg,svg,webp}', { eager: true });
+const allImages = import.meta.glob([
+  '/src/assets/**/*.{png,jpg,jpeg,svg,webp}',
+  '!/src/assets/projects/*.{png,jpg,jpeg}',
+  '!/src/assets/hero/*.{png,jpg,jpeg}',
+], { eager: true });
 
 // Build lookup maps: { "nittanyai": "/assets/NittanyAI-abc123.png" }
 const buildImageMap = (globResult) => {
@@ -53,5 +58,10 @@ export const resolveImage = (imageKey, category) => {
 // Legacy getImageUrl function for components using path-based lookups
 export const getImageUrl = (path) => {
   if (!path) return '';
+  // Support existing JSON and database paths without requiring a data migration.
+  if (/^(hero|projects)\//.test(path)) {
+    const optimizedPath = path.replace(/\.(png|jpe?g)$/i, '.webp');
+    return pathMap[optimizedPath] || pathMap[path] || '';
+  }
   return pathMap[path] || '';
 };
