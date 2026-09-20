@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { FiX, FiArrowLeft, FiArrowRight, FiArrowUpRight } from 'react-icons/fi';
+import { FiX, FiArrowLeft, FiArrowRight, FiArrowUpRight, FiArrowUp } from 'react-icons/fi';
 import styles from './PopUp.module.css';
 
 const validLink = (value) => {
@@ -10,7 +10,7 @@ const validLink = (value) => {
     } catch { return undefined; }
 };
 
-const PopUp = ({ project, onClose }) => {
+const PopUp = ({ project, onClose, onViewDemo }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const dialogRef = useRef(null);
     const { title, description, skills = [], screenshots = [], youtubeLink, imageSrc } = project;
@@ -81,8 +81,10 @@ const PopUp = ({ project, onClose }) => {
                     <button type="button" className={styles.iconButton} onClick={() => move(1)} aria-label="Next media"><FiArrowRight aria-hidden="true" /></button>
                 </div>}
             </div>}
-            {(demo || source) && <div className={styles.links}>
-                {demo && <a href={demo} target="_blank" rel="noopener noreferrer" className={styles.demo}>View demo <FiArrowUpRight aria-hidden="true" /></a>}
+            {(onViewDemo || demo || source) && <div className={styles.links}>
+                {onViewDemo
+                    ? <button type="button" onClick={onViewDemo} className={styles.demo}>View demo <FiArrowUp aria-hidden="true" /></button>
+                    : demo && <a href={demo} target="_blank" rel="noopener noreferrer" className={styles.demo}>View demo <FiArrowUpRight aria-hidden="true" /></a>}
                 {source && <a href={source} target="_blank" rel="noopener noreferrer">{new URL(source).hostname === 'github.com' ? 'View source' : 'Project link'} <FiArrowUpRight aria-hidden="true" /></a>}
             </div>}
         </dialog>

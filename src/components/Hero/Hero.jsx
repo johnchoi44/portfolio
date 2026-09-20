@@ -11,11 +11,34 @@ linkedin } from '../../assets'
 import { generateAndDownloadResume } from '../../utils/resumeAPI';
 import { getProjects, getKeywords, getHeroSettings } from '../../utils';
 
-const Hero = ({ onToggleAbout, onOpenProject }) => {
+const Hero = ({ onToggleAbout, onOpenProject, resumeDemoRequest = 0 }) => {
   const [keywordInput, setKeywordInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [highlightResume, setHighlightResume] = useState(false);
+  const resumeSectionRef = useRef(null);
+  const resumeInputRef = useRef(null);
+
+  useEffect(() => {
+    if (!resumeDemoRequest) return;
+    // Wait until the dialog has closed and restored its previous focus.
+    const frame = requestAnimationFrame(() => {
+      const section = resumeSectionRef.current;
+      const input = resumeInputRef.current;
+      setHighlightResume(true);
+      window.scrollTo({
+        top: 0,
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+      });
+      (input?.disabled ? section : input)?.focus({ preventScroll: true });
+    });
+    const timer = setTimeout(() => setHighlightResume(false), 2800);
+    return () => {
+      cancelAnimationFrame(frame);
+      clearTimeout(timer);
+    };
+  }, [resumeDemoRequest]);
 
   // Orbit state
   const [activeKeyword, setActiveKeyword] = useState(null);
@@ -269,9 +292,10 @@ const Hero = ({ onToggleAbout, onOpenProject }) => {
           ><img src={linkedin} alt="Linkedin Logo" className={styles.logoImg} />
           </a>
         </div>
-        <div className={styles.resumeSection}>
+        <div ref={resumeSectionRef} tabIndex={-1} id="resume-generator"
+          className={`${styles.resumeSection} ${highlightResume ? styles.resumeHighlight : ''}`}>
           <div className={styles.labelRow}>
-            <p className={styles.keywordLabel}>Generate a tailored resume with keywords:</p>
+            <label htmlFor="resume-keywords" className={styles.keywordLabel}>Generate a tailored resume with keywords:</label>
             <div className={styles.infoIcon}>
               ⓘ
               <div className={styles.tooltip}>
@@ -284,6 +308,8 @@ const Hero = ({ onToggleAbout, onOpenProject }) => {
           </div>
           <div className={styles.keywordInputGroup}>
             <input
+              ref={resumeInputRef}
+              id="resume-keywords"
               type="text"
               className={styles.keywordInput}
               value={keywordInput}

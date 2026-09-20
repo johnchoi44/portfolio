@@ -10,16 +10,23 @@ import PopUp from './components/Projects/PopUp.jsx'
 function App() {
   const [aboutVisible, setAboutVisible] = useState(false)
   const [selectedProject, setSelectedProject] = useState(null)
+  const [resumeDemoRequest, setResumeDemoRequest] = useState(0)
+
+  const showResumeDemo = () => {
+    setSelectedProject(null)
+    setResumeDemoRequest((request) => request + 1)
+  }
 
   return (
     <div className={styles.App}>
-      <Hero onToggleAbout={() => setAboutVisible((visible) => !visible)} onOpenProject={setSelectedProject} />
+      <Hero onToggleAbout={() => setAboutVisible((visible) => !visible)} onOpenProject={setSelectedProject} resumeDemoRequest={resumeDemoRequest} />
       {aboutVisible && <About />}
       <div className={styles.refined}>
         <Experience />
         <Projects setSelectedProject={setSelectedProject} />
         {selectedProject && (
-          <PopUp key={selectedProject.title} project={selectedProject} onClose={() => setSelectedProject(null)} />
+          <PopUp key={selectedProject.title} project={selectedProject} onClose={() => setSelectedProject(null)}
+            onViewDemo={selectedProject.title === 'Resume Generator' ? showResumeDemo : undefined} />
         )}
       </div>
     </div>
