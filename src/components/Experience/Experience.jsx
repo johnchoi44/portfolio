@@ -1,67 +1,40 @@
-import React, { useState, useEffect } from 'react';
-
+import { useState, useEffect } from 'react';
 import { getHistory } from '../../utils';
+import styles from './Experience.module.css';
 
-import styles from "./Experience.module.css";
-
-const Experience = () => {
+export default function Experience() {
     const [showAll, setShowAll] = useState(false);
     const [history, setHistory] = useState([]);
+    useEffect(() => { getHistory().then(setHistory); }, []);
 
-    useEffect(() => {
-        getHistory().then(setHistory);
-    }, []);
-
-    const handleToggleShow = () => {
-        setShowAll(!showAll);
-    };
-
-    const displayedHistory = showAll ? history : history.slice(0, 3);
-
-    return(
-        <section className={styles.container} id="experience">
-            <h2 className={styles.title}>Experience</h2>
-            <div className={styles.content}>
-                <ul className={styles.history}>
-                    {displayedHistory.map((historyItem, id) => {
-                        return (
-                            <li key={id} className={styles.historyItem}>
-                                <img src={historyItem.imageSrc} alt={`${historyItem.organisation} Logo`} />
-                                <div className={styles.historyItemDetails}>
-                                    <h3>{`${historyItem.role}`}</h3>
-                                    <h4>{`${historyItem.organisation}`}</h4>
-                                    <p>{`${historyItem.startDate} - ${historyItem.endDate}`}</p>
-                                    <ul>
-                                        {historyItem.experiences.map((experience, id) => {
-                                        return (
-                                            <button key={id} className={styles.experienceButton}>{experience}</button>
-                                        )})}
-                                    </ul>
-                                </div>
-                            </li>
-                        )})}
-                </ul>
-                {/* <div className={styles.skills}>
-                    {skills.map((skills, id) => {
-                        return (
-                            <div key={id} className={styles.skill}>
-                                <div className={styles.skillImageContainer}>
-                                    <img src={getImageUrl(skills.imageSrc)} alt={skills.title} />
-                                </div>
-                                <p>{skills.title}</p>
-                            </div>
-                        )
-                    })}
-                </div> */}
-                
+    return (
+        <section className={styles.container} id="experience" tabIndex={-1} aria-labelledby="experience-title">
+            <div className={styles.heading}>
+                <p className={styles.eyebrow}>01 / THE JOURNEY</p>
+                <h2 id="experience-title">Experience</h2>
+                <p>Building across AI, machine learning, and software.</p>
             </div>
-            {history.length > 3 && (
-                    <button onClick={handleToggleShow} className={styles.seeMoreButton}>
-                        {showAll ? "See Less" : "See More"}
-                    </button>
-                )}
+            <div className={styles.timeline}>
+                <ol className={styles.history} id="experience-history">
+                    {(showAll ? history : history.slice(0, 3)).map((item, index) => (
+                        <li key={index} className={styles.historyItem}>
+                            <div className={styles.logo}><img src={item.imageSrc} alt="" loading="lazy" /></div>
+                            <div className={styles.details}>
+                                <p className={styles.date}>{item.startDate} — {item.endDate}</p>
+                                <h3>{item.role}</h3>
+                                <p className={styles.organisation}>{item.organisation}</p>
+                                <ul className={styles.tags} aria-label="Skills and technologies">
+                                    {item.experiences.map((skill, skillIndex) => <li key={skillIndex}>{skill}</li>)}
+                                </ul>
+                            </div>
+                        </li>
+                    ))}
+                </ol>
+                {history.length > 3 && <button type="button" className={styles.more}
+                    aria-expanded={showAll} aria-controls="experience-history" onClick={() => setShowAll(!showAll)}>
+                    {showAll ? 'Show recent experience −' : 'View full experience +'}
+                </button>}
+            </div>
         </section>
-    )
+    );
 }
-
-export default Experience

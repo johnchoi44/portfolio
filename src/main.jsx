@@ -6,6 +6,11 @@ import App from './App.jsx'
 
 import "@fontsource/outfit"
 import "@fontsource/roboto"
+import "@fontsource/outfit/500.css"
+import "@fontsource/outfit/600.css"
+import "@fontsource/outfit/700.css"
+import "@fontsource/roboto/500.css"
+import "@fontsource/roboto/700.css"
 
 const AdminApp = lazy(() => import('./admin/AdminApp.jsx'))
 const BlogsAdminApp = lazy(() => import('./blogs-admin/BlogsAdminApp.jsx'))

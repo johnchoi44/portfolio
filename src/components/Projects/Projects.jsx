@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from 'react-icons/bs';
+import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import styles from './Projects.module.css';
 import { getProjects } from '../../utils';
 import ProjectCard from './ProjectCard';
@@ -49,13 +49,21 @@ const Projects = ({ setSelectedProject }) => {
     const currentIndex = projects.length ? wrapIndex(position, projects.length) : 0;
 
     return (
-        <section className={styles.container} id="projects">
-            <h2 className={styles.title}>Project</h2>
+        <section className={styles.container} id="projects" tabIndex={-1} aria-labelledby="projects-title">
+            <div className={styles.heading}>
+                <div><p className={styles.eyebrow}>02 / IDEAS INTO PRODUCTS</p><h2 id="projects-title">Selected work</h2></div>
+                <p>AI applications, useful tools, and experiments.<br />A closer look at what I build.</p>
+            </div>
             {projects.length > 0 && <>
+                <div className={styles.controls}><span className={styles.counter} aria-live="polite" aria-atomic="true">{String(currentIndex + 1).padStart(2, '0')} <span>/ {String(projects.length).padStart(2, '0')}</span></span>
                 <button type="button" onClick={prevSlide} className={styles.arrowLeft}
                     aria-label="Previous project" disabled={projects.length < 2}>
-                    <BsArrowLeftCircleFill aria-hidden="true" />
+                    <FiArrowLeft aria-hidden="true" />
                 </button>
+                <button type="button" onClick={nextSlide} className={styles.arrowRight}
+                    aria-label="Next project" disabled={projects.length < 2}>
+                    <FiArrowRight aria-hidden="true" />
+                </button></div>
                 <div className={styles.carousel} role="region" aria-label="Projects carousel"
                     style={{ '--slide-duration': `${SLIDE_DURATION}ms` }}>
                     {(projects.length === 1 ? [0] : [-2, -1, 0, 1, 2]).map((offset) => {
@@ -75,7 +83,7 @@ const Projects = ({ setSelectedProject }) => {
                                 <div className={styles.cardInteraction} role="button"
                                     tabIndex={visible ? 0 : -1}
                                     aria-label={offset === 0 ? `Open ${project.title}` : `Show ${project.title}`}
-                                    onClick={visible ? activate : undefined}
+                                    onClick={visible ? (event) => { event.currentTarget.focus(); activate(); } : undefined}
                                     onKeyDown={(event) => {
                                         if (event.key === 'Enter' || event.key === ' ') {
                                             event.preventDefault();
@@ -92,10 +100,6 @@ const Projects = ({ setSelectedProject }) => {
                         );
                     })}
                 </div>
-                <button type="button" onClick={nextSlide} className={styles.arrowRight}
-                    aria-label="Next project" disabled={projects.length < 2}>
-                    <BsArrowRightCircleFill aria-hidden="true" />
-                </button>
                 <div className={styles.indicators}>
                     {projects.map((project, index) => (
                         <button type="button" key={index} onClick={() => goToSlide(index)}
