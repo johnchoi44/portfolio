@@ -19,9 +19,9 @@ function App() {
 
   return (
     <div className={styles.App}>
-      <Hero onToggleAbout={() => setAboutVisible((visible) => !visible)} onOpenProject={setSelectedProject} resumeDemoRequest={resumeDemoRequest} />
-      {aboutVisible && <About />}
+      <Hero onToggleAbout={() => setAboutVisible((visible) => !visible)} aboutVisible={aboutVisible} onOpenProject={setSelectedProject} resumeDemoRequest={resumeDemoRequest} />
       <div className={styles.refined}>
+        {aboutVisible && <About />}
         <Experience />
         <Projects setSelectedProject={setSelectedProject} />
         {selectedProject && (

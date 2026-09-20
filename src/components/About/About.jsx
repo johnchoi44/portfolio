@@ -1,42 +1,34 @@
-import React from 'react'
+import { useEffect, useRef } from 'react';
+import styles from './About.module.css';
 
-import styles from "./About.module.css"
+export default function About() {
+    const sectionRef = useRef(null);
 
-const About = () => {
-  return (
-    <section className={styles.container} id="about">
-        <h2 className={styles.title}>About Me</h2>
-        <div className={styles.content}>
-            <ul className={styles.aboutItems}>
-                <li className={styles.aboutItem}>
-                    <div className={styles.aboutItemText}>
-                        <p>
-                            I'm John Choi, a Penn State graduate in Computational Data Science with a minor in Mathematics, and I currently work as an AI Engineer focused on building production-ready AI products.
-                        </p>
-                        <br />
-                        <p>
-                            In my work, I've utilized AI by designing and shipping structured LLM systems end-to-end: building AI assistants that perform tool selection and parameter extraction, integrating those systems with real APIs/databases, and improving reliability through schema design, prompt iteration, and type-safe pipelines. I've implemented conversation memory and context controls, optimized token usage and output quality, and combined model outputs with deterministic logic (including simulation-based evaluators) to ensure correctness and trustworthy user experience in production.
-                        </p>
-                        <br />
-                        <p>
-                            Previously, as a Machine Learning Engineer at Nittany AI Advance, I worked with the PlantVillage team to develop computer vision models using Python and TensorFlow, built outlier-detection algorithms, and processed large-scale agricultural datasets on Amazon EC2. Outside of work, I enjoy golf, guitar, basketball, soccer, music, and movies.
-                        </p>
-                    </div>
-                </li>
-                {/* <li className={styles.aboutItem}>
-                    <div className={styles.aboutItemText}>
-                        <h3>Technical Expertise</h3>
-                        <ul>
-                            <li>Programming Languages: Python, R, SQL, Java, JavaScript</li>
-                            <li>Framework & Tools: TensorFlow, PyTorch, Spark, AWS, React.js, Node.js, Google Cloud Vertex AI</li>
-                            <li>Skills: Machine Learning, Data Analysis, Computer Vision, Data Scraping, Sentiment Analysis, Full Stack Development, Leadership, Problem Solving, Critical Thinking, Interpersonal Communication</li>
-                        </ul>
-                    </div>
-                </li> */}
-            </ul>
-        </div>
-    </section>
-  )
+    useEffect(() => {
+        const frame = requestAnimationFrame(() => {
+            sectionRef.current?.scrollIntoView({
+                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+                block: 'start',
+            });
+            sectionRef.current?.focus({ preventScroll: true });
+        });
+        return () => cancelAnimationFrame(frame);
+    }, []);
+
+    return (
+        <section ref={sectionRef} className={styles.container} id="about" tabIndex={-1} aria-labelledby="about-title">
+            <h2 id="about-title">About me</h2>
+            <div className={styles.copy}>
+                <p className={styles.lead}>I’m currently an AI Engineer at <strong>Single Case Informatics</strong>, building AI-assisted workflows for research software.</p>
+                <p>I focus on making these workflows reliable, understandable, and keeping researchers in control of the results.</p>
+                <h3 className={styles.focusHeading}>Currently focused on</h3>
+                <ul className={styles.focusList}>
+                    <li>Natural-language graph and table editing, contextual feedback, and AI suggestions that researchers can review.</li>
+                    <li>Connecting language models to application tools through structured, typed outputs, with evaluation and tracking of model behavior, latency, and token costs.</li>
+                    <li>Building reliable workflows across interfaces, data persistence, and access controls.</li>
+                </ul>
+                <p className={styles.background}>I studied Computational Data Science at Penn State, with a minor in Mathematics. Outside of work, I enjoy golf, guitar, basketball, and soccer.</p>
+            </div>
+        </section>
+    );
 }
-
-export default About

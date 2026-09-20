@@ -11,7 +11,7 @@ linkedin } from '../../assets'
 import { generateAndDownloadResume } from '../../utils/resumeAPI';
 import { getProjects, getKeywords, getHeroSettings } from '../../utils';
 
-const Hero = ({ onToggleAbout, onOpenProject, resumeDemoRequest = 0 }) => {
+const Hero = ({ onToggleAbout, aboutVisible = false, onOpenProject, resumeDemoRequest = 0 }) => {
   const [keywordInput, setKeywordInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -332,7 +332,7 @@ const Hero = ({ onToggleAbout, onOpenProject, resumeDemoRequest = 0 }) => {
 
         <div className={styles.navButtons}>
           <a href={resume} target="_blank" className={styles.navButton}>Résumé</a>
-          <a onClick={(e) => { e.preventDefault(); onToggleAbout(); document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }); }} className={styles.navButton} style={{ cursor: 'pointer' }}>About Me</a>
+          <button type="button" onClick={onToggleAbout} aria-expanded={aboutVisible} aria-controls="about" className={styles.navButton}>About Me</button>
           <a onClick={() => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' })} className={styles.navButton} style={{ cursor: 'pointer' }}>Experience</a>
           <a onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })} className={styles.navButton} style={{ cursor: 'pointer' }}>Project</a>
           <a href="#/blogs" className={styles.navButton}>Blog</a>
