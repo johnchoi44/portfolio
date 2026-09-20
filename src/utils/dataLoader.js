@@ -5,6 +5,7 @@ import blogsData from '../data/blogs.json';
 import heroSettingsData from '../data/heroSettings.json';
 import { resolveImage } from './imageRegistry';
 import { supabase } from '../admin/lib/supabaseClient';
+import { polishProject } from './projectContent';
 
 export const getHistory = async () => {
   try {
@@ -49,10 +50,10 @@ export const getProjects = async () => {
       if (item.demo) proj.demo = item.demo;
       if (item.source) proj.source = item.source;
       if (item.youtube_link) proj.youtubeLink = item.youtube_link;
-      return proj;
+      return polishProject(proj);
     });
   } catch {
-    return projectsData.map(project => ({
+    return projectsData.map(project => polishProject({
       ...project,
       imageSrc: resolveImage(project.imageSrc, 'projects'),
       screenshots: (project.screenshots || [])

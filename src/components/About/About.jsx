@@ -1,22 +1,8 @@
-import { useEffect, useRef } from 'react';
 import styles from './About.module.css';
 
 export default function About() {
-    const sectionRef = useRef(null);
-
-    useEffect(() => {
-        const frame = requestAnimationFrame(() => {
-            sectionRef.current?.scrollIntoView({
-                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
-                block: 'start',
-            });
-            sectionRef.current?.focus({ preventScroll: true });
-        });
-        return () => cancelAnimationFrame(frame);
-    }, []);
-
     return (
-        <section ref={sectionRef} className={styles.container} id="about" tabIndex={-1} aria-labelledby="about-title">
+        <section className={styles.container} id="about" tabIndex={-1} aria-labelledby="about-title">
             <h2 id="about-title">About me</h2>
             <div className={styles.copy}>
                 <p className={styles.lead}>I’m currently an AI Engineer at <strong>Single Case Informatics</strong>, building AI-assisted workflows for research software.</p>

@@ -8,7 +8,6 @@ import Projects from './components/Projects/Projects.jsx'
 import PopUp from './components/Projects/PopUp.jsx'
 
 function App() {
-  const [aboutVisible, setAboutVisible] = useState(false)
   const [selectedProject, setSelectedProject] = useState(null)
   const [resumeDemoRequest, setResumeDemoRequest] = useState(0)
 
@@ -19,9 +18,9 @@ function App() {
 
   return (
     <div className={styles.App}>
-      <Hero onToggleAbout={() => setAboutVisible((visible) => !visible)} aboutVisible={aboutVisible} onOpenProject={setSelectedProject} resumeDemoRequest={resumeDemoRequest} />
+      <Hero onOpenProject={setSelectedProject} resumeDemoRequest={resumeDemoRequest} />
       <div className={styles.refined}>
-        {aboutVisible && <About />}
+        <About />
         <Experience />
         <Projects setSelectedProject={setSelectedProject} />
         {selectedProject && (

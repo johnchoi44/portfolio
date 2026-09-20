@@ -11,7 +11,7 @@ linkedin } from '../../assets'
 import { generateAndDownloadResume } from '../../utils/resumeAPI';
 import { getProjects, getKeywords, getHeroSettings } from '../../utils';
 
-const Hero = ({ onToggleAbout, aboutVisible = false, onOpenProject, resumeDemoRequest = 0 }) => {
+const Hero = ({ onOpenProject, resumeDemoRequest = 0 }) => {
   const [keywordInput, setKeywordInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -315,7 +315,7 @@ const Hero = ({ onToggleAbout, aboutVisible = false, onOpenProject, resumeDemoRe
               value={keywordInput}
               onChange={(e) => setKeywordInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleGenerateResume()}
-              placeholder="e.g., Golf, Guitar, Basketball"
+              placeholder="e.g., Python, Guitar, or Golf"
               disabled={loading}
             />
             <button
@@ -332,9 +332,17 @@ const Hero = ({ onToggleAbout, aboutVisible = false, onOpenProject, resumeDemoRe
 
         <div className={styles.navButtons}>
           <a href={resume} target="_blank" className={styles.navButton}>Résumé</a>
-          <button type="button" onClick={onToggleAbout} aria-expanded={aboutVisible} aria-controls="about" className={styles.navButton}>About Me</button>
+          <button type="button" onClick={() => {
+            const section = document.getElementById('about');
+            section?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+            section?.focus({ preventScroll: true });
+          }} className={styles.navButton}>About Me</button>
           <a onClick={() => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' })} className={styles.navButton} style={{ cursor: 'pointer' }}>Experience</a>
-          <a onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })} className={styles.navButton} style={{ cursor: 'pointer' }}>Project</a>
+          <button type="button" onClick={() => {
+            const section = document.getElementById('projects');
+            section?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+            section?.focus({ preventScroll: true });
+          }} className={styles.navButton}>Projects</button>
           <a href="#/blogs" className={styles.navButton}>Blog</a>
         </div>
       </div>

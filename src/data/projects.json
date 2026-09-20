@@ -1,86 +1,164 @@
 [
-    {
-      "title": "Resume Generator",
-      "imageSrc": "resume",
-      "description": "An AI-powered web app that intelligently tailors your resume to job opportunities using Google Gemini API",
-      "skills": ["#BAML", "#MongoDB", "#Gemini", "#Next.js"],
-      "demo": "https://resume-generator-7ufnb05dn-johns-projects-320c18e7.vercel.app/",
-      "source": "https://github.com/johnchoi44/resume-generator-app",
-      "screenshots": ["rg1", "rg2", "rg3"]
-    },
-    {
-      "title": "Nittany Business",
-      "imageSrc": "nittany",
-      "description": "A full-stack B2B marketplace connecting sellers and buyers with browsing, checkout, seller management, and customer support features.",
-      "skills": ["#SQLite", "#SQL", "#React.js", "#Node.js"],
-      "source": "https://github.com/johnchoi44/NittanyBusiness",
-      "screenshots": ["nb1", "nb2", "nb3", "nb4", "nb5", "nb6", "nb7", "nb8"]
-    },
-    {
-      "title": "Vibe.Ai",
-      "imageSrc": "vibeai",
-      "description": "Platform for users to generate personalized voice outputs and music covers using advanced AI technologies.",
-      "skills": ["#Voice Cloning", "#Music Cover Gen", "#React.js", "#Node.js"],
-      "demo": "https://youtu.be/jwbqdBqSGfI?si=I5s_7gKNqidYZbqS",
-      "source": "https://github.com/johnchoi44/VibeAI",
-      "youtubeLink": "https://www.youtube.com/embed/jwbqdBqSGfI?si=MdO1qErDuZ2NsiFQ",
-      "screenshots": ["vibe1", "vibe2", "vibe3", "vibe4", "vibe5", "vibe6", "vibe7"]
-    },
-    {
-      "title": "Groop",
-      "imageSrc": "groop",
-      "description": "Real-time messaging platform which match people based on their MBTI and interests.",
-      "skills": ["#Google Cloud Vertex AI", "#Firebase", "#React.js", "#Node.js"],
-      "demo": "https://youtu.be/R4BUHn4X1lk",
-      "source": "https://github.com/johnchoi44/GROOP",
-      "youtubeLink": "https://www.youtube.com/embed/R4BUHn4X1lk?si=hTGA7gXSWcRRI0zQ",
-      "screenshots": ["groop1", "groop2", "groop3", "groop4", "groop5", "groop6", "groop7", "groop8"]
-    },
-    {
-      "title": "Book Recommendation System",
-      "imageSrc": "book_recommendation",
-      "description": "Developed genre-specific book recommendation system using Amazon book reviews.",
-      "skills": ["#Apache Spark", "#HPC", "#ML"],
-      "demo": "https://www.example.com",
-      "source": "https://github.com/johnchoi44/BookRecommendationSystem",
-      "screenshots": ["ds410"]
-    },
-    {
-      "title": "Crime Severity Analysis in NYC",
-      "imageSrc": "340w",
-      "description": "Analyzing and predicting crime severity across NYC using ML.",
-      "skills": ["#ML", "#Data Analysis", "#Data Integration", "#Data Visualization"],
-      "demo": "https://docs.google.com/presentation/d/1qLM_tuAN2niDSqgJhcYBwWSNY6nHni1OYO7s0cTM84E/edit?usp=sharing",
-      "source": "https://github.com/johnchoi44/DS340W_Project",
-      "screenshots": ["340w"]
-    },
-    {
-      "title": "Workplace Social Media Activity",
-      "imageSrc": "ps",
-      "description": "Research project investigating the impact of social/technical changes on organizational behaviors.",
-      "skills": ["#Data Scraping", "#Sentiment Analysis", "#Twitter API"],
-      "demo": "https://www.example.com",
-      "source": "https://github.com/johnchoi44/ProjectTwitter",
-      "screenshots": ["twitter"]
-    },
-    {
-      "title": "Chatbot Development",
-      "imageSrc": "chatbot",
-      "description": "Analyzed historical customer inquiries to model and develop a customer service chabot.",
-      "skills": ["#SQL", "#KakaoTalk API"],
-      "demo": "http://pf.kakao.com/_CXxmeb",
-      "source": "https://www.linkedin.com/in/choi-yongjun/details/projects/",
-      "screenshots": ["chatbot1"]
-    },
-    {
-      "title": "MegaByte",
-      "imageSrc": "datafest",
-      "description": "Analyzed real-world dataset provided by the AMA to design a platform to match a client to the appropriate attorney.",
-      "skills": ["#R", "#Tableau", "#Data Visualization", "#Data Analysis"],
-      "demo": "https://www.youtube.com/watch?v=SAb4ZrnstgU&t=96s",
-      "source": "https://datafest.psu.edu/previous/_2023/",
-      "youtubeLink": "https://www.youtube.com/embed/SAb4ZrnstgU?si=RqQnwDxgvA_JNIsO",
-      "screenshots": [""]
-    }
-  ]
-
+  {
+    "title": "Resume Generator",
+    "imageSrc": "resume",
+    "description": "I built a résumé generator that turns a stored work history and requested skills into a tailored Word document, using structured AI output and keyword-based fallback logic.",
+    "skills": [
+      "#BAML",
+      "#MongoDB",
+      "#Gemini",
+      "#Next.js"
+    ],
+    "demo": "https://resume-generator-7ufnb05dn-johns-projects-320c18e7.vercel.app/",
+    "source": "https://github.com/johnchoi44/resume-generator-app",
+    "screenshots": [
+      "rg1",
+      "rg2",
+      "rg3"
+    ]
+  },
+  {
+    "title": "Nittany Business",
+    "imageSrc": "nittany",
+    "description": "A team-built B2B marketplace covering product discovery, checkout, seller management, and customer support in one full-stack application.",
+    "skills": [
+      "#SQLite",
+      "#SQL",
+      "#React.js",
+      "#Node.js"
+    ],
+    "source": "https://github.com/johnchoi44/NittanyBusiness",
+    "screenshots": [
+      "nb1",
+      "nb2",
+      "nb3",
+      "nb4",
+      "nb5",
+      "nb6",
+      "nb7",
+      "nb8"
+    ]
+  },
+  {
+    "title": "Vibe.Ai",
+    "imageSrc": "vibeai",
+    "description": "A web application for voice cloning and AI-generated music covers, bringing personalized audio creation into a browser-based workflow.",
+    "skills": [
+      "#Voice Cloning",
+      "#Music Cover Gen",
+      "#React.js",
+      "#Node.js"
+    ],
+    "demo": "https://youtu.be/jwbqdBqSGfI?si=I5s_7gKNqidYZbqS",
+    "source": "https://github.com/johnchoi44/VibeAI",
+    "youtubeLink": "https://www.youtube.com/embed/jwbqdBqSGfI?si=MdO1qErDuZ2NsiFQ",
+    "screenshots": [
+      "vibe1",
+      "vibe2",
+      "vibe3",
+      "vibe4",
+      "vibe5",
+      "vibe6",
+      "vibe7"
+    ]
+  },
+  {
+    "title": "Groop",
+    "imageSrc": "groop",
+    "description": "A real-time messaging application that matches people by personality type and shared interests, then gives them a place to connect.",
+    "skills": [
+      "#Google Cloud Vertex AI",
+      "#Firebase",
+      "#React.js",
+      "#Node.js"
+    ],
+    "demo": "https://youtu.be/R4BUHn4X1lk",
+    "source": "https://github.com/johnchoi44/GROOP",
+    "youtubeLink": "https://www.youtube.com/embed/R4BUHn4X1lk?si=hTGA7gXSWcRRI0zQ",
+    "screenshots": [
+      "groop1",
+      "groop2",
+      "groop3",
+      "groop4",
+      "groop5",
+      "groop6",
+      "groop7",
+      "groop8"
+    ]
+  },
+  {
+    "title": "Book Recommendation System",
+    "imageSrc": "book_recommendation",
+    "description": "A genre-specific recommendation system using Amazon book reviews and Apache Spark to help readers discover relevant books.",
+    "skills": [
+      "#Apache Spark",
+      "#HPC",
+      "#ML"
+    ],
+    "source": "https://github.com/johnchoi44/BookRecommendationSystem",
+    "screenshots": [
+      "ds410"
+    ]
+  },
+  {
+    "title": "Crime Severity Analysis in NYC",
+    "imageSrc": "340w",
+    "description": "A machine-learning project combining NYC crime data, visualization, and predictive modeling to investigate patterns in crime severity.",
+    "skills": [
+      "#ML",
+      "#Data Analysis",
+      "#Data Integration",
+      "#Data Visualization"
+    ],
+    "demo": "https://docs.google.com/presentation/d/1qLM_tuAN2niDSqgJhcYBwWSNY6nHni1OYO7s0cTM84E/edit?usp=sharing",
+    "source": "https://github.com/johnchoi44/DS340W_Project",
+    "screenshots": [
+      "340w"
+    ]
+  },
+  {
+    "title": "Workplace Social Media Activity",
+    "imageSrc": "ps",
+    "description": "A research project using Twitter data collection and sentiment analysis to explore how social and technical changes relate to workplace behavior.",
+    "skills": [
+      "#Data Scraping",
+      "#Sentiment Analysis",
+      "#Twitter API"
+    ],
+    "source": "https://github.com/johnchoi44/ProjectTwitter",
+    "screenshots": [
+      "twitter"
+    ]
+  },
+  {
+    "title": "Chatbot Development",
+    "imageSrc": "chatbot",
+    "description": "I analyzed historical customer inquiries and developed a customer-service chatbot using SQL and the KakaoTalk API to address recurring questions.",
+    "skills": [
+      "#SQL",
+      "#KakaoTalk API"
+    ],
+    "demo": "http://pf.kakao.com/_CXxmeb",
+    "source": "https://www.linkedin.com/in/choi-yongjun/details/projects/",
+    "screenshots": [
+      "chatbot1"
+    ]
+  },
+  {
+    "title": "MegaByte",
+    "imageSrc": "datafest",
+    "description": "A DataFest project analyzing a real-world dataset to inform a platform concept for matching clients with suitable attorneys.",
+    "skills": [
+      "#R",
+      "#Tableau",
+      "#Data Visualization",
+      "#Data Analysis"
+    ],
+    "demo": "https://www.youtube.com/watch?v=SAb4ZrnstgU&t=96s",
+    "source": "https://datafest.psu.edu/previous/_2023/",
+    "youtubeLink": "https://www.youtube.com/embed/SAb4ZrnstgU?si=RqQnwDxgvA_JNIsO",
+    "screenshots": [
+      ""
+    ]
+  }
+]
